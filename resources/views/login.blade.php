@@ -29,7 +29,7 @@
 
                         <div>
                             <button type="submit" class="btn btn-success mt-4 mb-3 w-100">Iniciar</button>
-                            <p class="text-center">Aún no tienes cuenta? <a href="#" class="text-success"> Registrarse</a></p>
+                            <p class="text-center">Aún no tienes cuenta? <a href="{{ url('SignIn')}}" class="text-success"> Registrarse</a></p>
                         </div>
 
                     </form>
