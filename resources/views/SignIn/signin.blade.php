@@ -16,7 +16,7 @@
                 <h5>Registrarse</h5>
             </div>
             <div class="card-body">
-                <form class="w-100 d-flex flex-column align-items-center" action="{{url('http://localhost:8001/api/users')}}" method="post">
+                <form class="w-100 d-flex flex-column align-items-center" action="{{url('http://localhost:8000/api/users')}}" method="post">
                     <label class="col-12 col-md-10 form-label">Nombre Completo
                         <input class="form-control" type="text" name="full_name">
                     </label>
@@ -32,10 +32,10 @@
 
                     <div class="d-flex gap-3 col-12 col-md-10">
                         <label class="form-label w-50">Contraseña
-                            <input class="form-control" type="password" name="password">
+                            <input class="form-control" type="text" name="password">
                         </label>
                         <label class="form-label w-50">Confirmar contraseña
-                            <input class="form-control" type="password">
+                            <input class="form-control" type="text" id="password_confirmation">
                         </label>
                     </div>
                     <div class="col-10 d-flex justify-content-center gap-3">
@@ -48,5 +48,16 @@
 
     </section>
 </body>
+<script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const password = document.querySelector('input[name="password"]').value;
+        const confirm = document.querySelector('#confirm_password').value;
+
+        if (password !== confirm) {
+            e.preventDefault();
+            alert('Las contraseñas no coinciden');
+        }
+    });
+</script>
 
 </html>

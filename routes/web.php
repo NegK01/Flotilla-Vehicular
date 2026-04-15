@@ -8,7 +8,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/', function () {
+Route::get('/register', function () {
     return view('SignIn.signin');
 })->name('register');
 
