@@ -45,7 +45,7 @@ class AuthController extends Controller
 
             return match ($data['user']['role_id'] ?? null) {
                 //hay que asignarle los nombres de las vistas correctas luego
-                1 => redirect()->route('register'), //vista de prueba
+                1 => redirect()->route('register'), //vista de prueba, la de registrar
                 2 => redirect()->route(''),
                 3 => redirect()->route(''),
                 default => back()->withErrors([
