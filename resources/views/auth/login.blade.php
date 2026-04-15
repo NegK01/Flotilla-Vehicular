@@ -11,7 +11,7 @@
 <body class="bg">
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="col-sm-12 col-md-9 col-lg-6">
-            <div class="card shadow p-4 border-success">
+            <div class="card shadow p-4 border-success hover-scale">
                 <div class="card-header text-center">
                     <h4>INICIO DE SESIÓN</h4>
                 </div>
