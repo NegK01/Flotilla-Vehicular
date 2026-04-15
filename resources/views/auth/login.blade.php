@@ -30,13 +30,13 @@
                             <label class="form-label">Ingrese su contraseña</label>
                             <input type="password" name="password" class="form-control" required>
                             @error('password')
-                                <small>{{ $message }}</small>
+                            <small>{{ $message }}</small>
                             @enderror
                         </div>
 
                         <div>
                             <button type="submit" class="btn btn-success mt-4 mb-3 w-100">Iniciar</button>
-                            <p class="text-center">Aún no tienes cuenta? <a href="{{ url('SignIn')}}" class="text-success"> Registrarse</a></p>
+                            <p class="text-center">Aún no tienes cuenta? <a href="{{ url('register')}}" class="text-success"> Registrarse</a></p>
                         </div>
 
                     </form>

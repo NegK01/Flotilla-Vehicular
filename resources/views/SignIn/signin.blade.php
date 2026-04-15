@@ -35,7 +35,7 @@
                             <input class="form-control" type="text" name="password">
                         </label>
                         <label class="form-label w-50">Confirmar contraseña
-                            <input class="form-control" type="text" id="password_confirmation">
+                            <input class="form-control" type="text" name="password_confirmation">
                         </label>
                     </div>
                     <div class="col-10 d-flex justify-content-center gap-3">
@@ -51,7 +51,7 @@
 <script>
     document.querySelector('form').addEventListener('submit', function(e) {
         const password = document.querySelector('input[name="password"]').value;
-        const confirm = document.querySelector('#confirm_password').value;
+        const confirm = document.querySelector('input[name="password_confirmation"]').value;
 
         if (password !== confirm) {
             e.preventDefault();
