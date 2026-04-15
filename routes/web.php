@@ -1,11 +1,21 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('login');
-})->name("index");
 
-Route::get('/SignIn', function () {
+Route::get('/', function () {
+    return redirect()->route('login');
+});
+
+Route::get('/', function () {
     return view('SignIn.signin');
-})->name("SignIn");
+})->name('register');
+
+
+
+
+
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.store');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
