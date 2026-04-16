@@ -12,6 +12,10 @@ Route::get('/register', function () {
     return view('SignIn.signin');
 })->name('register');
 
+Route::get('/general', function () {
+    return view('users.general');
+})->name('general');
+
 
 
 
