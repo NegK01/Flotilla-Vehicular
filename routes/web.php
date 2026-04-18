@@ -25,3 +25,4 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //user routes
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/driver_view', [UserController::class, 'showDriver'])->name('users.driverView');

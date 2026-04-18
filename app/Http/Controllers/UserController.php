@@ -26,8 +26,7 @@ class UserController extends Controller
             ]);
 
             $data = json_decode($response->getBody()->getContents(), true);
-
-            return view('users.general', [
+            return view('layouts.Components.general', [
                 'users' => $data['data']['data']
             ]);
         } catch (RequestException $e) {
