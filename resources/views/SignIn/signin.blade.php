@@ -16,7 +16,7 @@
                 <h5>Registrarse</h5>
             </div>
             <div class="card-body">
-                <form class="w-100 d-flex flex-column align-items-center" action="{{url('http://localhost:8000/api/users')}}" method="post">
+                <form class="w-100 d-flex flex-column align-items-center" action="{{ route('user.store') }}" method="post">
                     <label class="col-12 col-md-10 form-label m-3">Nombre Completo
                         <input class="form-control" type="text" name="full_name">
                     </label>

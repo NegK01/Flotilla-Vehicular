@@ -12,6 +12,13 @@ class AuthController extends Controller
     {
         return view('auth.login');
     }
+    private function apiClient(): Client
+    {
+        return new Client([
+            'base_uri' => config('services.api.url'),
+            'timeout'  => 10,
+        ]);
+    }
 
     public function login(Request $request)
     {
@@ -20,10 +27,7 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        $client = new Client([
-            'base_uri' => config('services.api.url'),
-            'timeout'  => 10,
-        ]);
+        $client = $this->apiClient();
 
         try {
             $response = $client->post('/api/login', [
@@ -74,10 +78,7 @@ class AuthController extends Controller
         $token = session('access_token');
 
         if ($token) {
-            $client = new Client([
-                'base_uri' => config('services.api.url'),
-                'timeout'  => 10,
-            ]);
+            $client = $this->apiClient();
 
             try {
                 $client->post('/api/logout', [
@@ -95,5 +96,64 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('login');
+    }
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'full_name' => ['required', 'string'],
+            'email'     => ['required', 'email'],
+            'phone'     => ['nullable', 'string'],
+            'role_id'   => ['required', 'integer'],
+            'password'  => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        try {
+            $this->apiClient()->post('api/registerDriver', [
+                'headers' =>  [
+                    'Accept' => 'application/json',
+                ],
+                'json'    => [
+                    'full_name'             => $validated['full_name'],
+                    'email'                 => $validated['email'],
+                    'phone'                 => $validated['phone'] ?? null,
+                    'role_id'               => $validated['role_id'],
+                    'password'              => $validated['password'],
+                    'password_confirmation' => $request->password_confirmation,
+                ],
+            ]);
+
+            return redirect()->route('login')->onlyInput('email');
+        } catch (RequestException $e) {
+            dd($e);
+            return $this->handleValidationError($e);
+        }
+    }
+    private function handleValidationError(RequestException $e)
+    {
+        $response = $e->getResponse();
+
+        if ($response) {
+            $data = json_decode($response->getBody()->getContents(), true);
+            return back()->withErrors($data['errors'] ?? ['general' => $data['message'] ?? 'Error al procesar.'])->withInput();
+        }
+
+        return back()->withErrors(['general' => 'No fue posible conectar con el backend.'])->withInput();
+    }
+
+    private function handleError(RequestException $e, string $redirectRoute)
+    {
+        $response = $e->getResponse();
+        $message  = 'Error inesperado.';
+
+        if ($response) {
+            $data    = json_decode($response->getBody()->getContents(), true);
+            $message = $data['message'] ?? $message;
+
+            if ($response->getStatusCode() === 401) {
+                return redirect()->route('login')->withErrors(['email' => 'Sesión expirada.']);
+            }
+        }
+
+        return redirect()->route($redirectRoute)->with('error', $message);
     }
 }
