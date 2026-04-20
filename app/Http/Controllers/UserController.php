@@ -3,38 +3,33 @@
 namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
+use Illuminate\Support\Facades\Http;
+
 use Illuminate\Http\Request;
+
 
 class UserController extends Controller
 {
 
-    public function index(Request $request)
+    private function apiRequest()
     {
-
-        $client = new Client([
-            'base_uri' => config('services.api.url'),
-            'timeout'  => 10,
-        ]);
-
+        return Http::withToken(session('access_token'))
+            ->acceptJson()
+            ->baseUrl(config('services.api.url') . '/api');
+    }
+    public function index()
+    {
         try {
-            $response = $client->get('/api/users', [
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'Authorization' => 'Bearer ' . session('access_token'),
-                ],
-            ]);
+            $response = $this->apiRequest()->get('/users');
 
-            $data = json_decode($response->getBody()->getContents(), true);
-            return view('layouts.Components.general', [
-                'users' => $data['data']['data']
+            if (!$response->successful()) {
+                dd("Error de API", $response->status(), $response->json());
+            }
+            return view('layouts.Components.users_general', [
+                'users' => $response->json()['data']['data']
             ]);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-
-            return back()->withErrors([
-                'email' => 'No fue posible conectar con la API.',
-            ])->withInput();
+        } catch (\Exception $e) {
+            dd("Excepción capturada en Index:", $e->getMessage());
         }
     }
 }
