@@ -23,7 +23,16 @@ class StoreVehicleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'plate' => 'required|string|max:20',
+            'brand' => 'required|string|max:100',
+            'model' => 'required|string|max:100',
+            'year' => 'required|integer|min:1900|max:2027',
+            'vehicle_type' => 'required|string|max:50',
+            'capacity' => 'required|integer|min:1|max:255',
+            'fuel_type' => 'required|string|max:50',
+            'image_path' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'status' => 'nullable|in:available,reserved,maintenance,out_of_service',
+            'current_mileage' => 'nullable|integer|min:0',
         ];
     }
 }

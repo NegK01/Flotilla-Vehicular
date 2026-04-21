@@ -48,12 +48,11 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h3 class="mb-0">Lista de Usuarios</h3>
+                            <h3 class="mb-0">Lista de Vehiculos</h3>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-end">
-                                <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Usuarios</li>
+                                <a href="{{ route('vehicles.create') }}" class="btn btn-success m-3">Nuevo vehiculo</a>
                             </ol>
                         </div>
                     </div>
@@ -76,9 +75,36 @@
 
 
                     <div class="row text-center">
+                        <div class="row">
+                            @foreach ($vehicles as $vehicle)
+                            <div class="col-md-4 col-lg-4">
+                                <div class="card shadow h-100">
+                                    <img src="{{ asset($vehicle['image_path']) }}" 
+                                     class="card-img-top img-personalized img-fluid"
+                                     style="height: 350px; object-fit: cover;">
 
+                                    <div class="card-body d-flex flex-column gap-2">
+                                        <h5 class="card-title mb-2">
+                                            {{ $vehicle['brand'] }}
+                                            <span class="text-muted">{{ $vehicle['model'] }}</span>
+                                        </h5>
 
-                        //lista de usuarios
+                                        <div class="d-flex flex-column small text-muted gap-1">
+                                            <span><strong>Año:</strong> {{ $vehicle['year'] }}</span>
+                                            <span><strong>Capacidad:</strong> {{ $vehicle['capacity'] }}</span>
+                                            <span><strong>Kilometraje:</strong> {{ $vehicle['current_mileage'] }}</span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="card-footer d-flex justify-content-end">
+                                        <a href="{{ route('vehicles.create') }}" class="btn btn-primary">Editar</a>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+
+                        </div>
 
                     </div>
 
