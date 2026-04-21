@@ -100,7 +100,7 @@
                                     <td>Conductor</td>
                                     @endif
                                     <td>
-                                        <a href="#" class="btn btn-primary">Editar</a>
+                                        <a href="{{ route('users.edit', $user['id']) }}" class="btn btn-primary">Editar</a>
                                         <a href="#" class="btn btn-danger">Eliminar</a>
                                     </td>
                                 </tr>
