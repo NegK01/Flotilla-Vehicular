@@ -74,38 +74,34 @@
                         table-sm → tabla más compacta-->
 
 
-                    <div class="row text-center">
-                        <div class="row">
-                            @foreach ($vehicles as $vehicle)
-                            <div class="col-md-4 col-lg-4">
-                                <div class="card shadow h-100">
-                                    <img src="{{ asset($vehicle['image_path']) }}" 
-                                     class="card-img-top img-personalized img-fluid"
-                                     style="height: 350px; object-fit: cover;">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 text-center">
+                        @foreach ($vehicles as $vehicle)
+                        <div class="col">
+                            <div class="card shadow h-100">
+                                <img src="{{ $vehicle['image_url'] }}"
+                                    class="card-img-top img-personalized img-fluid"
+                                    style="height: clamp(190px, 24vw, 240px); object-fit: cover; width: 100%;">
 
-                                    <div class="card-body d-flex flex-column gap-2">
-                                        <h5 class="card-title mb-2">
-                                            {{ $vehicle['brand'] }}
-                                            <span class="text-muted">{{ $vehicle['model'] }}</span>
-                                        </h5>
+                                <div class="card-body d-flex flex-column gap-2">
+                                    <h5 class="card-title mb-2">
+                                        {{ $vehicle['brand'] }}
+                                        <span class="text-muted">{{ $vehicle['model'] }}</span>
+                                    </h5>
 
-                                        <div class="d-flex flex-column small text-muted gap-1">
-                                            <span><strong>Año:</strong> {{ $vehicle['year'] }}</span>
-                                            <span><strong>Capacidad:</strong> {{ $vehicle['capacity'] }}</span>
-                                            <span><strong>Kilometraje:</strong> {{ $vehicle['current_mileage'] }}</span>
-                                        </div>
-
+                                    <div class="d-flex flex-column small text-muted gap-1">
+                                        <span><strong>Año:</strong> {{ $vehicle['year'] }}</span>
+                                        <span><strong>Capacidad:</strong> {{ $vehicle['capacity'] }}</span>
+                                        <span><strong>Kilometraje:</strong> {{ $vehicle['current_mileage'] }}</span>
                                     </div>
 
-                                    <div class="card-footer d-flex justify-content-end">
-                                        <a href="{{ route('vehicles.create') }}" class="btn btn-primary">Editar</a>
-                                    </div>
+                                </div>
+
+                                <div class="card-footer d-flex justify-content-end">
+                                    <a href="{{ route('vehicles.create') }}" class="btn btn-primary">Editar</a>
                                 </div>
                             </div>
-                            @endforeach
-
                         </div>
-
+                        @endforeach
                     </div>
 
 

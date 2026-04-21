@@ -6,8 +6,7 @@ use App\Http\Requests\StoreVehicleRequest;
 use App\Http\Requests\UpdateVehicleRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-
-use function Ramsey\Uuid\v1;
+use Illuminate\Support\Arr;
 
 class VehicleController extends Controller
 {
@@ -38,9 +37,16 @@ class VehicleController extends Controller
     {
         $data = $request->validated();
 
-        $data['image_path'] = $this->parseImage($request);
+        $image = $request->file('image_path');
+        $payload = Arr::except($data, ['image_path']);
 
-        $response = $this->apiClient()->post('api/vehicles', $data);
+        $response = $this->apiClient()
+            ->attach(
+                'image_path',
+                file_get_contents($image->getRealPath()),
+                $image->getClientOriginalName()
+            )
+            ->post('api/vehicles', $payload);
 
         if ($response->failed()) {
             return back()->withInput()
@@ -58,13 +64,4 @@ class VehicleController extends Controller
     public function update(UpdateVehicleRequest $request) {}
 
     public function destroy() {}
-
-    private function parseImage($request)
-    {
-        $file = $request->file('image_path');
-        $fileName = time() . '_' . $file->getClientOriginalName();
-        $file->move(public_path('assets/img/vehicles'), $fileName);
-
-        return 'assets/img/vehicles/' . $fileName;
-    }
 }
