@@ -41,6 +41,7 @@
         @include('layouts.sidebar')
         <!--end::Sidebar-->
 
+
         <!--begin::App Main-->
         <main class="app-main">
             <!--begin::App Content Header-->
@@ -65,6 +66,38 @@
             <div class="app-content">
                 <div class="container-fluid">
 
+                    <div class="col-lg-6">
+                        <div class="card card-outline card-primary h-100 mb-3 ">
+                            <div class="card-header">
+                                <h3 class="card-title">Accesos rápidos</h3>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <a href="" class="btn btn-primary w-100 py-2">
+                                            <i class="bi bi-person-plus-fill me-2 "></i>
+                                            Registrar usuario
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="" class="btn btn-primary w-100 py-2">
+                                            <i class="bi bi-person-plus-fill me-2 "></i>
+                                            Registrar usuario
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="" class="btn btn-primary w-100 py-2">
+                                            <i class="bi bi-person-plus-fill me-2 "></i>
+                                            Registrar usuario
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
                     <!--begin::Users List-->
 
                     <!-- Propiedades de las tablas (por si se ocupan)

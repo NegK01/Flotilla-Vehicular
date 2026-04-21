@@ -28,12 +28,11 @@ Route::post('users/store', [AuthController::class, 'store'])->name('user.store')
 
 
 //user routes
+Route::resource('users', UserController::class);
+
+/*
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::get('/users/update/{user}', [UserController::class, 'show'])->name('users.edit'); //show
 Route::put('/users/update/{user}', [UserController::class, 'update'])->name('users.update'); //update
-
-
-
-
-
-Route::get('/driver_view', [UserController::class, 'showDriver'])->name('users.driverView');
+*/

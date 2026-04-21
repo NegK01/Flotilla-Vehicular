@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\StoreUserRequest;
 
 
 class UserController extends Controller
@@ -29,29 +30,11 @@ class UserController extends Controller
             return view('layouts.Components.users_general', [
                 'users' => $response->json()['data']['data']
             ]);
-        } catch (\Exception $e) {
-            dd("Excepción capturada en Index:", $e->getMessage());
+        } catch (\Exception $error) {
+            dd("Excepción capturada en Index:", $error->getMessage());
         }
     }
-    public function show($id)
-    {
-        try {
-            $response = $this->apiRequest()->get("/users/{$id}");
-
-            if (!$response->successful()) {
-                dd("Error de API:", $response->status(), $response->json());
-            }
-
-            $json = $response->json();
-
-            return view('users.update', [
-                'users' => $json['data'] ?? $json
-            ]);
-        } catch (\Exception $e) {
-            dd("Excepción capturada:", $e->getMessage());
-        }
-    }
-    public function update(UpdateUserRequest $request)
+    public function store(StoreUserRequest $request)
     {
         $response = $this->apiRequest()->put("/users/{$request->id}", $request->validated());
 
@@ -61,5 +44,44 @@ class UserController extends Controller
 
         //dd($response->json());
         return back()->withErrors('La API rechazó los datos.');
+    }
+    public function show($id)
+    {
+        try {
+            $response = $this->apiRequest()->get("/users/{$id}");
+
+            if (!$response->successful()) {
+                throw new \Exception("Error API ({$response->status()}): " . $response->body());
+            }
+
+            $data = $response->json();
+            return $data['data'] ?? $data;
+        } catch (\Exception $error) {
+            return back()->withErrors("Error al obtener usuario: " . $error->getMessage());
+        }
+    }
+    public function edit($id)
+    {
+        try {
+            $user = $this->show($id);
+
+            return view('users.update', [
+                'users' => $user
+            ]);
+        } catch (\Exception $error) {
+            dd("Excepción capturada en Edit:", $error->getMessage());
+        }
+    }
+
+    public function update(UpdateUserRequest $request, $id)
+    {
+
+        $response = $this->apiRequest()->put("/users/{$id}", $request->validated());
+
+        if ($response->successful()) {
+            return redirect()->route('users.index')->with('success', 'Usuario actualizado');
+        }
+
+        return back()->withErrors('La API rechazó los datos: ' . $response->body());
     }
 }
