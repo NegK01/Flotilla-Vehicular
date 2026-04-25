@@ -97,7 +97,12 @@
                                 </div>
 
                                 <div class="card-footer d-flex justify-content-end">
-                                    <a href="{{ route('vehicles.create') }}" class="btn btn-primary">Editar</a>
+                                    <a href="{{ route('vehicles.edit', $vehicle['id']) }}" class="btn btn-primary">Editar</a>
+                                    <form action="{{ route('vehicles.destroy', $vehicle['id']) }}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger ms-1" onclick="return confirm('Desea borrar este vehiculo?');">Eliminar</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
