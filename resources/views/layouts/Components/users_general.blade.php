@@ -110,51 +110,86 @@
 
                     <div class="row text-center">
 
-
                         <table class="table table-dark table-striped table-hover">
                             <thead>
-                                <th>Nombre Completo</th>
-                                <th>Correo</th>
-                                <th>Teléfono</th>
-                                <th>Rol</th>
-                                <th>Acciones</th>
+                                <tr>
+                                    <th>Nombre Completo</th>
+                                    <th>Correo</th>
+                                    <th>Teléfono</th>
+                                    <th>Rol</th>
+                                    <th>Acciones</th>
+                                </tr>
                             </thead>
                             <tbody>
+                                @if(!$users)
+                                <tr>
+                                    <td colspan="5" class="text-center">No hay datos para mostrar</td>
+                                </tr>
+                                @else
                                 @foreach ($users as $user)
                                 <tr>
                                     <td>{{ $user['full_name'] }}</td>
                                     <td>{{ $user['email'] }}</td>
                                     <td>{{ $user['phone'] }}</td>
-                                    @if ($user['role_id'] == 1)
-                                    <td>Administrador</td>
-                                    @elseif ($user['role_id'] == 2)
-                                    <td>Operador</td>
-                                    @elseif ($user['role_id'] == 3)
-                                    <td>Conductor</td>
-                                    @endif
                                     <td>
+                                        @if ($user['role_id'] == 1) Administrador
+                                        @elseif ($user['role_id'] == 2) Operador
+                                        @elseif ($user['role_id'] == 3) Conductor
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if( !isset($user['deleted_at']) || is_null($user['deleted_at']) )
                                         <a href="{{ route('users.edit', $user['id']) }}" class="btn btn-primary">Editar</a>
-                                        <a href="#" class="btn btn-danger">Eliminar</a>
+                                        <form action="{{ route('users.destroy', $user['id']) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">
+                                                Eliminar
+                                            </button>
+                                        </form>
+                                        @else
+                                        <form action="{{ route('users.restore', $user['id']) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit" class="btn btn-success w-100">
+                                                Reactivar
+                                            </button>
+                                        </form>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
-
+                                @endif
                             </tbody>
                         </table>
 
+                        <div class="card-footer d-flex justify-content-end">
+                            @if(Route::is('users.inactive'))
+                            <a href="{{ route('users.index') }}" class="btn btn-sm btn-success">
+                                Mostrar Activos
+                            </a>
+                            @else
+                            <a href="{{ route('users.inactive') }}" class="btn btn-sm btn-warning">
+                                Mostrar Inactivos
+                            </a>
+                            @endif
+                        </div>
+
+
+
+
+
+
+                        <!--end::Users List-->
                     </div>
-
-
-                    <!--end::Users List-->
                 </div>
-            </div>
-            <!--end::App Content-->
+                <!--end::App Content-->
 
-            <!--end::App Main-->
+                <!--end::App Main-->
 
-            <!--begin::Footer-->
+                <!--begin::Footer-->
 
-            <!--end::Footer-->
+                <!--end::Footer-->
 
         </main>
 

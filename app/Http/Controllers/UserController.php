@@ -48,6 +48,7 @@ class UserController extends Controller
     public function show($id)
     {
         try {
+
             $response = $this->apiRequest()->get("/users/{$id}");
 
             if (!$response->successful()) {
@@ -83,5 +84,57 @@ class UserController extends Controller
         }
 
         return back()->withErrors('La API rechazó los datos: ' . $response->body());
+    }
+    public function destroy($id)
+    {
+        try {
+            $response = $this->apiRequest()->delete("/users/{$id}");
+
+            if (!$response->successful()) {
+                dd("Error de API:", $response->status(), $response->json());
+            }
+
+            return redirect()->route('users.index')->with('success', 'Usuario eliminado');
+        } catch (\Exception $error) {
+            dd("Excepción capturada:", $error->getMessage());
+        }
+    }
+
+    public function restore($id)
+    {
+        try {
+
+            $response =  $this->apiRequest()->patch("/users/{$id}/restore");
+
+            if (!$response->successful()) {
+                dd("Error de API:", $response->status(), $response->json());
+            }
+
+            return redirect()->route('users.index')->with('success', 'Usuario restaurado');
+        } catch (\Exception $e) {
+            dd("Excepción capturada:", $e->getMessage());
+        }
+    }
+    public function inactive()
+    {
+        try {
+            $response = $this->apiRequest()->get('/users/inactive');
+
+
+            if (!$response->successful()) {
+                return back()->withErrors([
+                    'api' => "Error de API: {$response->status()}",
+                    'detail' => $response->json(),
+                ]);
+            }
+
+            $res = $response->json();
+
+            return view('layouts.Components.users_general', [
+                'users' => $res['data']['data']
+            ]);
+        } catch (\Exception $e) {
+            dd("Excepción capturada:", $e->getMessage());
+        }
     }
 }
