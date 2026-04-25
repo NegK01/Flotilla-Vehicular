@@ -15331,6 +15331,12 @@ html.maximized-card {
   width: 32px;
 }
 
+.img-personalized{
+  border-radius: 15px;
+  padding: 10px;
+  
+}
+
 /* ==========================================================================
    AdminLTE Accessibility Styles - WCAG 2.1 AA Compliance
    ========================================================================== */

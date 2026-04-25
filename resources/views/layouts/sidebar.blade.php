@@ -45,10 +45,10 @@
                       </li>
 
                       <li class="nav-item">
-                          <a href="#" class="nav-link">
-                              <i class="nav-icon bi bi-journal-bookmark-fill"></i>
+                          <a href="{{ route('vehicles.index') }}" class="nav-link">
+                              <i class="nav-icon bi bi-people-fill"></i>
                               <p>
-                                  Cursos
+                                  Vehiculos
                                   <i class="nav-arrow bi bi-chevron-right"></i>
                               </p>
                           </a>
