@@ -100,11 +100,20 @@
 
                                 <div class="card-footer d-flex justify-content-end">
                                     <a href="{{ route('vehicles.edit', $vehicle['id']) }}" class="btn btn-primary">Editar</a>
+                                    @if ($vehicle['deleted_at'] == null)
                                     <form action="{{ route('vehicles.destroy', $vehicle['id']) }}" method="post">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-danger ms-1" onclick="return confirm('Desea borrar este vehiculo?');">Eliminar</button>
                                     </form>
+                                    @else
+                                    <form action="{{ route('vehicles.restore', $vehicle['id']) }}" method="post">
+                                        @csrf
+                                        @method('patch')
+                                        <button type="submit" class="btn btn-success ms-1" onclick="return confirm('Desea reactivar este vehiculo?');">Restaurar</button>
+                                    </form>
+                                    @endif
+
                                 </div>
                             </div>
                         </div>

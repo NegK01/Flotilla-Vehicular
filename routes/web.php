@@ -41,3 +41,6 @@ Route::get('/driver_view', [UserController::class, 'showDriver'])->name('users.d
 Route::resource('vehicles', VehicleController::class);
 Route::get('/vehicles/inactive', [VehicleController::class, 'inactive'])->name('vehicles.inactive');
 Route::resource('vehicles', VehicleController::class);
+Route::get('/vehicles/inactive', [VehicleController::class, 'inactive'])->name('vehicles.inactive');
+Route::patch('/vehicles/{id}/restore', [VehicleController::class, 'restore'])->name('vehicles.restore');
+Route::resource('vehicles', VehicleController::class);
