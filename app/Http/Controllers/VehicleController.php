@@ -19,9 +19,13 @@ class VehicleController extends Controller
 
     public function index()
     {
-        $response = $this->apiClient()->get('api/vehicles')->json();
+        $response = $this->apiClient()->get('api/vehicles');
 
-        $vehicles = $response['data']['data'];
+        if ($response->failed()) {
+            abort(500, 'Error al obtener vehículos');
+        }
+
+        $vehicles = $response->json('data.data'); 
 
         return view('vehicles.vehicle-general', compact('vehicles'));
     }

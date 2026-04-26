@@ -14,6 +14,18 @@ class VehicleRequestsController extends Controller
             ->acceptJson();
     }
 
+    public function index(){
+        $response = $this->apiClient()->get('api/vehicleRequests');
+
+        if ($response->failed()) {
+            abort(500, 'Error al obtener solicitudes');
+        }
+
+        $requests = $response->json('data.data'); 
+
+        return view('vehicleRequests.viewRequests', compact('requests'));
+    }
+
 
     public function create()
     {
