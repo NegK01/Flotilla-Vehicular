@@ -201,7 +201,7 @@
                             <!--end::Body-->
                             <!--begin::Footer-->
                             <div class="card-footer">
-                                <button class="btn btn-success" type="submit">Submit form</button>
+                                <button class="btn btn-success" type="submit">Registrar</button>
                             </div>
                             <!--end::Footer-->
                         </form>

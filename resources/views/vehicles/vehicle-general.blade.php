@@ -49,6 +49,8 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <h3 class="mb-0">Lista de Vehiculos</h3>
+                            <a href="{{ route('vehicles.index') }}" class="btn btn-dark mt-4 mb-2">Activos</a>
+                            <a href="{{ route('vehicles.inactive') }}" class="btn btn-warning mt-4 mb-2 ms-1">Inactivos</a>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-end">

@@ -33,4 +33,5 @@ Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/driver_view', [UserController::class, 'showDriver'])->name('users.driverView');
 
 //vehicle routes
+Route::get('/vehicles/inactive',[VehicleController::class, 'inactive'])->name('vehicles.inactive');
 Route::resource('vehicles',VehicleController::class);

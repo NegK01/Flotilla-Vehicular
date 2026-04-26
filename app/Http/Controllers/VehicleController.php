@@ -26,6 +26,15 @@ class VehicleController extends Controller
         return view('vehicles.vehicle-general', compact('vehicles'));
     }
 
+    public function inactive()
+    {
+        $response = $this->apiClient()->get('api/vehicles?trashed=only')->json();
+
+        $vehicles = $response['data']['data'];
+
+        return view('vehicles.vehicle-general', compact('vehicles'));
+    }
+
     public function create()
     {
         return view('vehicles.vehicle-registration');
