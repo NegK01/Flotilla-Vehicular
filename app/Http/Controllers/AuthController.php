@@ -51,7 +51,7 @@ class AuthController extends Controller
                 //hay que asignarle los nombres de las vistas correctas luego
                 1 => redirect()->route('users.index'),
                 2 => redirect()->route('users'),
-                3 => redirect()->route('users'),
+                3 => redirect()->route('driver.index'),
                 default => back()->withErrors([
                     'email' => 'El usuario no tiene un rol válido para ingresar al sistema.',
                 ])->onlyInput('email'),
