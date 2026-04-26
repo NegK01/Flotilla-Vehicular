@@ -39,3 +39,5 @@ Route::get('/driver_view', [UserController::class, 'showDriver'])->name('users.d
 
 //vehicle routes
 Route::resource('vehicles', VehicleController::class);
+Route::get('/vehicles/inactive', [VehicleController::class, 'inactive'])->name('vehicles.inactive');
+Route::resource('vehicles', VehicleController::class);

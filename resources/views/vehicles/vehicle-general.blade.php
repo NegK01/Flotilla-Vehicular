@@ -49,6 +49,8 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <h3 class="mb-0">Lista de Vehiculos</h3>
+                            <a href="{{ route('vehicles.index') }}" class="btn btn-dark mt-4 mb-2">Activos</a>
+                            <a href="{{ route('vehicles.inactive') }}" class="btn btn-warning mt-4 mb-2 ms-1">Inactivos</a>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-end">
@@ -97,7 +99,12 @@
                                 </div>
 
                                 <div class="card-footer d-flex justify-content-end">
-                                    <a href="{{ route('vehicles.create') }}" class="btn btn-primary">Editar</a>
+                                    <a href="{{ route('vehicles.edit', $vehicle['id']) }}" class="btn btn-primary">Editar</a>
+                                    <form action="{{ route('vehicles.destroy', $vehicle['id']) }}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger ms-1" onclick="return confirm('Desea borrar este vehiculo?');">Eliminar</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

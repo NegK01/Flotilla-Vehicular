@@ -13,8 +13,8 @@ class VehicleController extends Controller
     public function apiClient()
     {
         return Http::withToken(session('access_token'))
-        ->baseUrl(config('services.api.url'))
-        ->acceptJson();
+            ->baseUrl(config('services.api.url'))
+            ->acceptJson();
     }
 
     public function index()
@@ -24,8 +24,15 @@ class VehicleController extends Controller
         $vehicles = $response['data']['data'];
 
         return view('vehicles.vehicle-general', compact('vehicles'));
+    }
 
+    public function inactive()
+    {
+        $response = $this->apiClient()->get('api/vehicles?trashed=only')->json();
 
+        $vehicles = $response['data']['data'];
+
+        return view('vehicles.vehicle-general', compact('vehicles'));
     }
 
     public function create()
@@ -35,6 +42,7 @@ class VehicleController extends Controller
 
     public function store(StoreVehicleRequest $request)
     {
+
         $data = $request->validated();
 
         $image = $request->file('image_path');
@@ -48,6 +56,7 @@ class VehicleController extends Controller
             )
             ->post('api/vehicles', $payload);
 
+
         if ($response->failed()) {
             return back()->withInput()
                 ->withErrors('No se pudo crear el vehiculo');
@@ -57,11 +66,79 @@ class VehicleController extends Controller
             ->with('sucess', 'Vehiculo creado con exito');
     }
 
-    public function show() {}
+    public function show($id)
+    {
+        $response = $this->apiClient()
+            ->get("api/vehicles/{$id}");
 
-    public function edit() {}
+        if ($response->failed()) {
+            return null;
+        }
 
-    public function update(UpdateVehicleRequest $request) {}
+        $vehicle = $response->json('data');
 
-    public function destroy() {}
+        return $vehicle;
+    }
+
+    public function edit($id)
+    {
+        $vehicle = $this->show($id);
+
+        if (!$vehicle) {
+            return redirect()->route('vehicles.index')
+                ->withErrors('No se pudo encontrar el vehículo');
+        }
+
+        return view('vehicles.vehicle-edit', compact('vehicle'));
+    }
+
+    public function update(UpdateVehicleRequest $request, $id)
+    {
+        $data = $request->validated();
+
+        $image = $request->file('image_path');
+        $payload = Arr::except($data, ['image_path']);
+
+        if ($image) {
+            $response = $this->apiClient()
+                ->attach(
+                    'image_path',
+                    file_get_contents($image->getRealPath()),
+                    $image->getClientOriginalName()
+                )
+                ->post("api/vehicles/{$id}", [
+                    ...$payload,
+                    '_method' => 'PUT'
+                ]);
+        } else {
+            $response = $this->apiClient()
+                ->post("api/vehicles/{$id}", [
+                    ...$payload,
+                    '_method' => 'PUT'
+                ]);
+        }
+
+
+        if ($response->failed()) {
+            return back()->withInput()
+                ->withErrors('No se pudo actualizar el vehiculo');
+        }
+
+        return redirect()->route('vehicles.index')
+            ->with('success', 'Vehiculo actualizado con exito');
+    }
+
+    public function destroy($id)
+    {
+        $response = $this->apiClient()
+            ->delete("api/vehicles/{$id}");
+
+        if ($response->failed()) {
+            return back()
+                ->withErrors('No se pudo eliminar el vehículo');
+        }
+
+        return redirect()->route('vehicles.index')
+            ->with('success', 'Vehículo eliminado con éxito');
+    }
 }

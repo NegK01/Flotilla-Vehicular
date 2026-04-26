@@ -1,10 +1,9 @@
 <!doctype html>
 <html lang="en">
-<!--begin::Head-->
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Vehiculos</title>
+    <title>Editar Vehículo</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <meta name="color-scheme" content="light dark" />
@@ -25,229 +24,221 @@
 
     <link rel="stylesheet" href="{{ asset('css/adminlte.css') }}" />
 </head>
-<!--end::Head-->
-
-<!--begin::Body-->
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
-    <!--begin::App Wrapper-->
     <div class="app-wrapper">
 
-        <!--begin::Header-->
         @include('layouts.navbar')
-        <!--end::Header-->
-
-        <!--begin::Sidebar-->
         @include('layouts.sidebar')
-        <!--end::Sidebar-->
 
-        <!--begin::App Main-->
         <main class="app-main">
-            <!--begin::App Content Header-->
             <div class="app-content-header">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h3 class="mb-0">Lista de vehiculos</h3>
+                            <h3 class="mb-0">Editar vehículo</h3>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-end">
                                 <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Vehiculos</li>
+                                <li class="breadcrumb-item">
+                                    <a href="{{ route('vehicles.index') }}">Vehículos</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">Editar</li>
                             </ol>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--end::App Content Header-->
 
-            <!--begin::App Content-->
             <div class="app-content">
                 <div class="container-fluid">
 
-                    <!--begin::User Form-->
-                    <div class="card card-success card-outline mb-4">
-                        <!--begin::Header-->
+                    <div class="card card-warning card-outline mb-4">
                         <div class="card-header">
-                            <div class="card-title">Insertar vehiculo</div>
+                            <div class="card-title">Actualizar vehículo</div>
                         </div>
-                        <!--end::Header-->
-                        <!--begin::Form-->
-                        <form action="{{ route('vehicles.store') }}" class="needs-validation p-2" enctype="multipart/form-data" method="post">
+
+                        <form action="{{ route('vehicles.update', $vehicle['id']) }}"
+                            class="needs-validation p-2"
+                            enctype="multipart/form-data"
+                            method="POST">
                             @csrf
-                            <!--begin::Body-->
+                            @method('PUT')
+
                             <div class="card-body">
-                                <!--begin::Row-->
                                 <div class="row g-3">
-                                    <!--begin::Col-->
+
                                     <div class="col-md-6">
-                                        <label for="validationCustom01" class="form-label">Placa</label>
+                                        <label class="form-label">Placa</label>
                                         <input
                                             type="text"
                                             class="form-control"
                                             name="plate"
-                                            required />
-                                        <div class="valid-feedback">Looks good!</div>
+                                            value="{{ old('plate', $vehicle['plate']) }}"
+                                            required>
                                     </div>
-                                    <!--end::Col-->
-                                    <!--begin::Col-->
+
                                     <div class="col-md-6">
-                                        <label for="validationCustom02" class="form-label">Marca</label>
+                                        <label class="form-label">Marca</label>
                                         <input
                                             type="text"
                                             class="form-control"
                                             name="brand"
-                                            required />
-                                        <div class="valid-feedback">Looks good!</div>
+                                            value="{{ old('brand', $vehicle['brand']) }}"
+                                            required>
                                     </div>
-                                    <!--end::Col-->
-                                    <!--begin::Col-->
+
                                     <div class="col-md-6">
-                                        <label for="validationCustomUsername" class="form-label">Modelo</label>
-                                        <div class="input-group has-validation">
-                                            <input
-                                                type="text"
-                                                class="form-control"
-                                                name="model"
-                                                required />
-                                            <div class="invalid-feedback">Please insert a valid model.</div>
-                                        </div>
+                                        <label class="form-label">Modelo</label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            name="model"
+                                            value="{{ old('model', $vehicle['model']) }}"
+                                            required>
                                     </div>
-                                    <!--end::Col-->
-                                    <!--begin::Col-->
+
                                     <div class="col-md-6">
-                                        <label for="validationCustom03" class="form-label">Año</label>
+                                        <label class="form-label">Año</label>
                                         <input
                                             type="number"
                                             class="form-control"
                                             name="year"
-                                            value="2000"
+                                            value="{{ old('year', $vehicle['year']) }}"
                                             required
                                             min="2000"
-                                            max="2027" />
-                                        <div class="invalid-feedback">Please provide a valid year.</div>
+                                            max="2027">
                                     </div>
-                                    <!--end::Col-->
-                                    <!--begin::Col-->
+
                                     <div class="col-md-6">
-                                        <label for="validationCustom04" class="form-label">Tipo de vehiculo</label>
+                                        <label class="form-label">Tipo de vehículo</label>
                                         <input
                                             type="text"
                                             class="form-control"
                                             name="vehicle_type"
-                                            required />
-                                        <div class="invalid-feedback">Please select a valid type.</div>
+                                            value="{{ old('vehicle_type', $vehicle['vehicle_type']) }}"
+                                            required>
                                     </div>
-                                    <!--end::Col-->
-                                    <!--begin::Col-->
+
                                     <div class="col-md-6">
-                                        <label for="validationCustom05" class="form-label">Capacidad</label>
+                                        <label class="form-label">Capacidad</label>
                                         <input
                                             type="number"
                                             class="form-control"
                                             name="capacity"
+                                            value="{{ old('capacity', $vehicle['capacity']) }}"
                                             min="1"
                                             max="20"
-                                            required />
-                                        <div class="invalid-feedback">Please provide a valid capacity.</div>
+                                            required>
                                     </div>
-                                    <!--end::Col-->
-                                    <!--begin::Col-->
+
                                     <div class="col-md-6">
-                                        <label for="validationCustom04" class="form-label">Tipo de combustible</label>
+                                        <label class="form-label">Tipo de combustible</label>
                                         <input
                                             type="text"
                                             class="form-control"
                                             name="fuel_type"
-                                            required />
-                                        <div class="invalid-feedback">Please select a valid fuel.</div>
+                                            value="{{ old('fuel_type', $vehicle['fuel_type']) }}"
+                                            required>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label for="validationCustom05" class="form-label">Imagen del vehiculo</label>
+                                        <label class="form-label">Imagen del vehículo</label>
                                         <input
                                             type="file"
                                             class="form-control"
-                                            name="image_path"
-                                            required />
-                                        <div class="invalid-feedback">Please provide a valid image.</div>
+                                            name="image_path">
+
+                                        @if (!empty($vehicle['image_path']))
+                                        <div class="mt-2">
+                                            <small class="text-muted">Imagen actual:</small>
+                                            <br>
+                                            <img src="{{ asset($vehicle['image_path']) }}"
+                                                alt="Imagen del vehículo"
+                                                class="img-thumbnail mt-1"
+                                                style="max-width: 180px; height: auto;">
+                                        </div>
+                                        @endif
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label for="validationCustom04" class="form-label">Estado</label>
-                                        <select name="status" class="form-control">
-                                            <option value="available">Disponible</option>
-                                            <option value="reserved">Reservado</option>
-                                            <option value="maintenance">Mantenimiento</option>
-                                            <option value="out_of_service">Fuera de servicio</option>
+                                        <label class="form-label">Estado</label>
+                                        <select name="status" class="form-control" required>
+                                            <option value="available"
+                                                {{ old('status', $vehicle['status']) == 'available' ? 'selected' : '' }}>
+                                                Disponible
+                                            </option>
+
+                                            <option value="reserved"
+                                                {{ old('status', $vehicle['status']) == 'reserved' ? 'selected' : '' }}>
+                                                Reservado
+                                            </option>
+
+                                            <option value="maintenance"
+                                                {{ old('status', $vehicle['status']) == 'maintenance' ? 'selected' : '' }}>
+                                                Mantenimiento
+                                            </option>
+
+                                            <option value="out_of_service"
+                                                {{ old('status', $vehicle['status']) == 'out_of_service' ? 'selected' : '' }}>
+                                                Fuera de servicio
+                                            </option>
                                         </select>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label for="validationCustom05" class="form-label">Kilometraje actual</label>
+                                        <label class="form-label">Kilometraje actual</label>
                                         <input
                                             type="number"
                                             class="form-control"
                                             name="current_mileage"
+                                            value="{{ old('current_mileage', $vehicle['current_mileage']) }}"
                                             min="0"
-                                            value="0"
-                                            required />
-                                        <div class="invalid-feedback">Please provide a valid mileage.</div>
+                                            required>
                                     </div>
-                                    <!--end::Col-->
+
                                 </div>
-                                <!--end::Row-->
                             </div>
-                            <!--end::Body-->
-                            <!--begin::Footer-->
-                            <div class="card-footer">
-                                <button class="btn btn-success" type="submit">Registrar</button>
+
+                            <div class="card-footer d-flex gap-2">
+                                <button class="btn btn-warning" type="submit">
+                                    Actualizar vehículo
+                                </button>
+
+                                <a href="{{ route('vehicles.index') }}" class="btn btn-secondary">
+                                    Cancelar
+                                </a>
                             </div>
-                            <!--end::Footer-->
                         </form>
-                        <!--end::Form-->
-                        <!--begin::JavaScript-->
+
                         <script>
-                            // Example starter JavaScript for disabling form submissions if there are invalid fields
                             (() => {
                                 'use strict';
 
-                                // Fetch all the forms we want to apply custom Bootstrap validation styles to
                                 const forms = document.querySelectorAll('.needs-validation');
 
-                                // Loop over them and prevent submission
                                 Array.from(forms).forEach((form) => {
-                                    form.addEventListener(
-                                        'submit',
-                                        (event) => {
-                                            if (!form.checkValidity()) {
-                                                event.preventDefault();
-                                                event.stopPropagation();
-                                            }
+                                    form.addEventListener('submit', (event) => {
+                                        if (!form.checkValidity()) {
+                                            event.preventDefault();
+                                            event.stopPropagation();
+                                        }
 
-                                            form.classList.add('was-validated');
-                                        },
-                                        false,
-                                    );
+                                        form.classList.add('was-validated');
+                                    }, false);
                                 });
                             })();
                         </script>
-                        <!--end::JavaScript-->
                     </div>
-                    <!--end::User Form-->
+
                 </div>
             </div>
-            <!--end::App Content-->
         </main>
-        <!--end::App Main-->
 
-        <!--begin::Footer-->
         @include('layouts.footer')
-        <!--end::Footer-->
     </div>
-    <!--end::App Wrapper-->
 
-    <!--begin::Script-->
     <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js"
         crossorigin="anonymous"></script>
 
@@ -285,8 +276,6 @@
             }
         });
     </script>
-    <!--end::Script-->
 </body>
-<!--end::Body-->
 
 </html>
