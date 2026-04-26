@@ -78,7 +78,7 @@
 
                     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 text-center">
                         @if(!$vehicles)
-                            <h3 class="text-start mt-5">No hay vehiculos en esta categoria</h3>
+                        <h3 class="text-start mt-5">No hay vehiculos en esta categoria</h3>
                         @endif
 
                         @foreach ($vehicles as $vehicle)
