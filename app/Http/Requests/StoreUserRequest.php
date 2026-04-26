@@ -23,10 +23,11 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'full_name' => 'required|string|max:150',
-            'email' => 'required|email|max:255|unique:users,email',
+            'email' => 'required|email|max:255',
             'phone' => 'nullable|string|max:20',
-            'role_id' => 'required|exists:roles,id',
-            'password' => 'required|string|min:8|confirmed',
+            'role_id' => 'required',
+            'password' => 'required|string|min:8',
+            'password_confirmation' => 'required|string|min:8',
         ];
     }
 }
