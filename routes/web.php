@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\VehicleRequestsController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -41,3 +42,6 @@ Route::get('/driver_view', [UserController::class, 'showDriver'])->name('users.d
 Route::get('/vehicles/inactive', [VehicleController::class, 'inactive'])->name('vehicles.inactive');
 Route::patch('/vehicles/{id}/restore', [VehicleController::class, 'restore'])->name('vehicles.restore');
 Route::resource('vehicles', VehicleController::class);
+
+//vehicle requests routes
+Route::resource('vehicle-requests', VehicleRequestsController::class);
