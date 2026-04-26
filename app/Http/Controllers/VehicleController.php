@@ -141,4 +141,18 @@ class VehicleController extends Controller
         return redirect()->route('vehicles.index')
             ->with('success', 'Vehículo eliminado con éxito');
     }
+
+    public function restore($id)
+    {
+        $response = $this->apiClient()
+            ->patch("api/vehicles/{$id}/restore");
+
+        if ($response->failed()) {
+            return back()
+                ->withErrors('No se pudo activar el vehículo');
+        }
+
+        return redirect()->route('vehicles.index')
+            ->with('success', 'Vehículo activado con éxito');
+    }
 }
