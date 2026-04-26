@@ -55,7 +55,7 @@
                          <!--end::Menu Body-->
                          <!--begin::Menu Footer-->
                          <li class="user-footer">
-                             <form action="{{url('/')}}" method="get" class="d-inline">
+                             <form action="{{route('logout')}}" method="POST" class="d-inline">
                                  @csrf
                                  <button type="submit" class="btn btn-outline-danger float-end">
                                      Cerrar Sesión
