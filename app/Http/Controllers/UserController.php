@@ -34,9 +34,13 @@ class UserController extends Controller
             dd("Excepción capturada en Index:", $error->getMessage());
         }
     }
+    public function create()
+    {
+        return view('users.register');
+    }
     public function store(StoreUserRequest $request)
     {
-        $response = $this->apiRequest()->put("/users/{$request->id}", $request->validated());
+        $response = $this->apiRequest()->post("/users", $request->validated());
 
         if ($response->successful()) {
             return redirect()->route('users.index');
