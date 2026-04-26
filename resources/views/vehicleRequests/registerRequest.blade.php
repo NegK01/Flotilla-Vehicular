@@ -62,7 +62,7 @@
                             <div class="card-title">Nueva solicitud de vehículo</div>
                         </div>
 
-                        <form action="{{ route('vehicle-requests.store') }}" class="needs-validation p-2" method="POST">
+                        <form action="{{ route('driver.store') }}" class="needs-validation p-2" method="post">
                             @csrf
 
                             <div class="card-body">
@@ -85,7 +85,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <!--<div class="col-md-6">
                                         <label class="form-label">Tipo de solicitud</label>
                                         <select name="request_type" class="form-control" required>
                                             <option value="driver_request">Solicitud de conductor</option>
@@ -95,7 +95,7 @@
                                         <div class="invalid-feedback">
                                             Seleccione un tipo de solicitud.
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <div class="col-md-6">
                                         <label class="form-label">Fecha y hora de inicio</label>
