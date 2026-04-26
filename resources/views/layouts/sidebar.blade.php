@@ -2,7 +2,7 @@
           <!--begin::Sidebar Brand-->
           <div class="sidebar-brand">
               <!--begin::Brand Link-->
-              <a href="#" class="brand-link">
+              <a href="{{ route('users.index') }}" class="brand-link">
                   <!--begin::Brand Image-->
                   <img src="{{ asset('assets/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
                       class="brand-image opacity-75 shadow" />
@@ -36,7 +36,7 @@
                                   </a>
                               </li>
                               <li class="nav-item">
-                                  <a href="" class="nav-link">
+                                  <a href="{{ route('users.index') }}" class="nav-link">
                                       <i class="nav-icon bi bi-circle"></i>
                                       <p>Todos</p>
                                   </a>
