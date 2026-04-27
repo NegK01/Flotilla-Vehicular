@@ -60,25 +60,52 @@ class DriverController extends Controller
         dd($response->json());
         return back()->withErrors('La API rechazó los datos.');
     }
-    public function historial()
+
+    public function requestHistorial()
+    {
+
+        $responseUsers = $this->apiRequest()
+            ->get('users?role=3');
+
+        if ($responseUsers->failed()) {
+            abort(500, 'Error al obtener usuarios');
+        }
+        $users = $responseUsers->json('data.data');
+        $trips = [];
+        return view('layouts.driver.tripHistory', compact('users', 'trips'));
+    }
+    public function historial(Request $request)
     {
         try {
-            $id = $this->currentUserId();
+            $id = $request->query('user_id');
+            $start_date = $request->query('start_date');
+            $end_date = $request->query('end_date');
 
             if (!$id) {
-                return redirect()->route('login')->withErrors('Debe iniciar sesión para ver el historial.');
+                return redirect()->route('login')->withErrors('Usuario no identificado.');
             }
 
-            $response = $this->apiRequest()->get("reports/drivers/{$id}/history");
+            $url = "reports/drivers/{$id}/history";
+
+            $params = array_filter([
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+            ]);
+
+            $response = $this->apiRequest()->get($url, $params);
 
             if (!$response->successful()) {
                 dd("Error de API", $response->status(), $response->json());
             }
 
+            $usersResponse = $this->apiRequest()->get("users");
+
             $data = $response->json();
+            $usersData = $usersResponse->json();
 
             return view('layouts.driver.tripHistory', [
-                'trips' => $data['data']['data'] ?? []
+                'trips' => $data['data']['data'] ?? $data['data'] ?? [],
+                'users' => $usersData['data'] ?? []
             ]);
         } catch (\Exception $error) {
             dd("Excepción capturada en historial:", $error->getMessage());

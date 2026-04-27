@@ -17,37 +17,7 @@
 
         <main class="app-main">
 
-            <div class="col-lg-6 m-2">
-                <div class="card card-outline card-primary h-100 mb-3 ">
-                    <div class="card-header">
-                        <h3 class="card-title">Accesos rápidos</h3>
-                    </div>
 
-                    <div class="card-body">
-                        <div class="row g-3">
-                            <div class="col-md-4">
-                                <a href="" class="btn btn-primary w-100 py-2">
-                                    <i class="bi bi-person-plus-fill me-2 "></i>
-                                    H
-                            </div>
-                            <div class="col-md-4">
-                                <a href="{{ route('vehicles.index') }}" class="btn btn-success w-100 py-2">
-                                    <i class="bi bi-lightning-fill me-2"></i>
-                                    Registrar vehiculo
-                                </a>
-                            </div>
-                            <div class="col-md-4">
-                                <a href="" class="btn btn-primary w-100 py-2">
-                                    <i class="bi bi-shuffle me-2 "></i>
-                                    Registrar ruta
-                                </a>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
             <div class="app-content">
                 <div class="container-fluid">
 

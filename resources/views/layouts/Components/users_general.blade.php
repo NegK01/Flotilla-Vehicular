@@ -92,6 +92,12 @@
                                             Registrar ruta
                                         </a>
                                     </div>
+                                    <div class="col-md-4">
+                                        <a href="{{ route('request.historial') }}" class="btn btn-primary w-100 py-2">
+                                            <i class="bi bi-shuffle me-2 "></i>
+                                            Historial Chofer
+                                        </a>
+                                    </div>
                                 </div>
 
                             </div>
