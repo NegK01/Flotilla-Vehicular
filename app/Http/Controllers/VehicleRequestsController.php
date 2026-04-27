@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreVehicleRequestRequest;
+use App\Http\Requests\VehicleRequest\StoreRequest;
+use App\Http\Requests\VehicleRequest\DirectAssignmentRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -34,16 +35,22 @@ class VehicleRequestsController extends Controller
         $response = $this->apiClient()
             ->get('api/vehicles');
 
+        $responseUsers = $this->apiClient()
+            ->get('api/users?role=3');
         if ($response->failed()) {
             abort(500, 'Error al obtener vehiculos');
         }
+        if ($responseUsers->failed()) {
+            abort(500, 'Error al obtener usuarios');
+        }
+        $users = $responseUsers->json('data.data');
 
         $vehicles = $response->json('data.data');
 
-        return view('vehicleRequests.registerRequest', compact('vehicles'));
+        return view('vehicleRequests.registerRequest', compact('vehicles', 'users'));
     }
 
-    public function store(StoreVehicleRequestRequest $request)
+    public function store(StoreRequest $request)
     {
         $response = $this->apiClient()->post('api/vehicleRequests', $request->validated());
 
@@ -53,5 +60,17 @@ class VehicleRequestsController extends Controller
 
         return redirect()->route('vehicle-requests.index')
             ->with('success', 'Solicitud creada correctamente');
+    }
+    public function directStore(DirectAssignmentRequest $request)
+    {
+        //dd($request->all());
+        $response = $this->apiClient()->post('api/vehicleRequests/directAssignment', $request->validated());
+        //dd($response->json());
+        if ($response->failed()) {
+            return back()->with('error', 'Error al crear la solicitud');
+        }
+
+        return redirect()->route('vehicle-requests.index')
+            ->with('success', 'Asignado correctamente');
     }
 }

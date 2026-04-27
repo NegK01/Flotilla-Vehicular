@@ -24,6 +24,7 @@ class StoreVehicleRequestRequest extends FormRequest
     {
         return [
             // driver_id: el controller lo sobreescribe con auth()->id() para choferes (fix IDOR)
+            'driver_id'  => 'required|integer',
             'vehicle_id'  => 'required|integer',
             'start_at'    => 'required|date|after:now',
             'end_at'      => 'required|date|after:start_at',

@@ -40,7 +40,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h3 class="mb-0">Solicitar vehículo</h3>
+                            <h3 class="mb-0">Asignar vehículo</h3>
                         </div>
 
                         <div class="col-sm-6">
@@ -62,12 +62,28 @@
                             <div class="card-title">Nueva solicitud de vehículo</div>
                         </div>
 
-                        <form action="{{ route('driver.store') }}" class="needs-validation p-2" method="post">
+                        <form action="{{ route('request.directstore') }}" class="needs-validation p-2" method="post">
                             @csrf
 
                             <div class="card-body">
                                 <div class="row g-3">
 
+                                    <div class="col-md-6">
+                                        <label class="form-label">Usuarios</label>
+                                        <select name="driver_id" class="form-control" required>
+                                            <option value="">Seleccione un usuario</option>
+
+                                            @foreach ($users as $user)
+                                            <option value="{{ $user['id'] }}">
+                                                {{ $user['full_name'] }} {{ $user['id'] }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+
+                                        <div class="invalid-feedback">
+                                            Seleccione un usuario
+                                        </div>
+                                    </div>
                                     <div class="col-md-6">
                                         <label class="form-label">Vehículo</label>
                                         <select name="vehicle_id" class="form-control" required>

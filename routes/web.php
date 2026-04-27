@@ -6,7 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleRequestsController;
 use Illuminate\Support\Facades\Route;
-
+use SebastianBergmann\Environment\Console;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -45,6 +45,7 @@ Route::patch('/vehicles/{id}/restore', [VehicleController::class, 'restore'])->n
 
 Route::resource('vehicles', VehicleController::class);
 
+Route::post('/directStore', [VehicleRequestsController::class, 'directStore'])->name('request.directstore');
 Route::resource('driver', DriverController::class);
 
 //vehicle requests routes

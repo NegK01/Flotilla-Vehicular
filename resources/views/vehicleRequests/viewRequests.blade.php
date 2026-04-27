@@ -117,7 +117,7 @@
 
                                         @if($request['status'] == 'pending')
 
-                                        <form action="{{ route('vehicleRequests.approve', $request['id']) }}" method="POST" style="display:inline;">
+                                        <form method="POST" style="display:inline;">
                                             @csrf
                                             @method('PATCH')
                                             <button type="submit" class="btn btn-success btn-sm">
@@ -125,7 +125,7 @@
                                             </button>
                                         </form>
 
-                                        <form action="{{ route('vehicleRequests.reject', $request['id']) }}" method="POST" style="display:inline;">
+                                        <form method="POST" style="display:inline;">
                                             @csrf
                                             @method('PATCH')
                                             <button type="submit" class="btn btn-danger btn-sm">
