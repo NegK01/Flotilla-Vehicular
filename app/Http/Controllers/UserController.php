@@ -122,7 +122,7 @@ class UserController extends Controller
     public function inactive()
     {
         try {
-            $response = $this->apiRequest()->get('/users/inactive');
+            $response = $this->apiRequest()->get('/users?trashed=only');
 
 
             if (!$response->successful()) {
