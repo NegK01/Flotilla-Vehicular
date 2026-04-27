@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\OperadorController;
 use App\Http\Controllers\VehicleRequestsController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\Environment\Console;
@@ -52,3 +53,6 @@ Route::resource('driver', DriverController::class);
 Route::resource('vehicle-requests', VehicleRequestsController::class);
 Route::patch('/vehicles/{id}/aprove', [VehicleRequestsController::class, 'aprove'])->name('vehicles-request.aprove');
 Route::patch('/vehicles/{id}/reject', [VehicleRequestsController::class, 'reject'])->name('vehicles-request.reject');
+
+//Operador routes
+Route::resource('operador', OperadorController::class);
