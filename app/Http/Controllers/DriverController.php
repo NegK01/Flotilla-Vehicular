@@ -77,35 +77,29 @@ class DriverController extends Controller
     public function historial(Request $request)
     {
         try {
+
             $id = $request->query('user_id');
+
             $start_date = $request->query('start_date');
             $end_date = $request->query('end_date');
 
-            if (!$id) {
-                return redirect()->route('login')->withErrors('Usuario no identificado.');
-            }
-
-            $url = "reports/drivers/{$id}/history";
-
-            $params = array_filter([
+            $response = $this->apiRequest()->get("reports/drivers/{$id}/history", array_filter([
                 'start_date' => $start_date,
                 'end_date' => $end_date,
-            ]);
-
-            $response = $this->apiRequest()->get($url, $params);
+            ]));
 
             if (!$response->successful()) {
                 dd("Error de API", $response->status(), $response->json());
             }
-
             $usersResponse = $this->apiRequest()->get("users");
 
             $data = $response->json();
             $usersData = $usersResponse->json();
 
             return view('layouts.driver.tripHistory', [
-                'trips' => $data['data']['data'] ?? $data['data'] ?? [],
-                'users' => $usersData['data'] ?? []
+
+                'users' => $usersData['data']['data'] ?? [],
+                'trips' => $data['data']['vehicle_requests'] ?? [],
             ]);
         } catch (\Exception $error) {
             dd("Excepción capturada en historial:", $error->getMessage());

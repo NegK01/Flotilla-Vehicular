@@ -80,30 +80,38 @@
 
                                     @foreach($trips as $trip)
                                     <tr>
-                                        <td>{{ $trip['id'] }}</td>
+                                        {{-- Cambiado de 'id' a 'request_id' --}}
+                                        <td>{{ $trip['request_id'] }}</td>
+
                                         <td>
-                                            {{ $trip['vehicle']['brand'] ?? '' }}
-                                            {{ $trip['vehicle']['model'] ?? '' }}
-                                            ({{ $trip['vehicle']['year'] ?? '' }})
+                                            {{-- Los datos del vehículo ahora vienen directos (aplanados) --}}
+                                            {{ $trip['vehicle_brand'] ?? '' }}
+                                            {{ $trip['vehicle_model'] ?? '' }}
                                         </td>
+
                                         <td>
                                             <span class="badge bg-secondary">
-                                                {{ $trip['vehicle']['plate'] ?? 'N/A' }}
+                                                {{-- Cambiado de 'vehicle.plate' a 'vehicle_plate' --}}
+                                                {{ $trip['vehicle_plate'] ?? 'N/A' }}
                                             </span>
                                         </td>
+
                                         <td>{{ \Carbon\Carbon::parse($trip['start_at'])->format('d/m/Y H:i') }}</td>
                                         <td>{{ \Carbon\Carbon::parse($trip['end_at'])->format('d/m/Y H:i') }}</td>
+
                                         <td>
-                                            @if($trip['status'] == 'approved')
-                                            <span class="badge bg-success">Completado</span>
-                                            @elseif($trip['status'] == 'rejected')
+                                            {{-- Cambiado de 'status' a 'request_status' --}}
+                                            @if($trip['request_status'] == 'approved')
+                                            <span class="badge bg-success">Aprobado</span>
+                                            @elseif($trip['request_status'] == 'rejected')
                                             <span class="badge bg-danger">Rechazado</span>
-                                            @elseif($trip['status'] == 'cancelled')
+                                            @elseif($trip['request_status'] == 'cancelled')
                                             <span class="badge bg-warning">Cancelado</span>
                                             @else
-                                            <span class="badge bg-info">{{ $trip['status'] }}</span>
+                                            <span class="badge bg-info">{{ $trip['request_status'] }}</span>
                                             @endif
                                         </td>
+
                                         <td>
                                             <small class="text-muted">
                                                 {{ $trip['observation'] ?? 'Sin observaciones' }}

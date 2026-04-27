@@ -100,7 +100,7 @@
                                         </a>
                                     </div>
                                     <div class="col-md-4">
-                                        <a href="{{route('driver.historial')}}" class="btn btn-primary w-100 py-2">
+                                        <a href="{{route('request.historial')}}" class="btn btn-primary w-100 py-2">
                                             <i class="bi bi-compass me-2 "></i>
                                             Historial de viajes
                                         </a>

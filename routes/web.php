@@ -49,9 +49,9 @@ Route::resource('vehicles', VehicleController::class);
 
 Route::post('/directStore', [VehicleRequestsController::class, 'directStore'])->name('request.directstore');
 
-Route::get('/historial', [DriverController::class, 'requestHistorial'])->name('request.historial');
+Route::get('/show/historial', [DriverController::class, 'requestHistorial'])->name('request.historial');
 
-Route::post('/historial', [DriverController::class, 'historial'])->name('driver.historial');
+Route::get('/historial', [DriverController::class, 'historial'])->name('driver.historial');
 Route::resource('driver', DriverController::class);
 
 
