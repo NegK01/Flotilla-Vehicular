@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTripRequest;
 use App\Http\Requests\UpdateTripRequest;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Request;
+
 
 class TripController extends Controller
 {
@@ -89,12 +91,13 @@ class TripController extends Controller
         return view('trips.trip_edit', compact('trip'));
     }
 
-    public function update(UpdateTripRequest $request, $id)
+    public function update(UpdateTripRequest $request, $trip)
     {
+        //dd('Aqui ando', $trip);
         $data = $request->validated();
 
-        $response = $this->apiClient()->put("api/trips/{$id}", $data);
-
+        $response = $this->apiClient()->put("api/trips/{$trip}", $data);
+        //dd($response->json());
         if ($response->failed()) {
             return back()->withInput()->withErrors('No se pudo actualizar el viaje');
         }

@@ -88,7 +88,7 @@
                                         {{ $trip['vehicle']['plate'] ?? 'S/P' }}<br>
                                         <small class="text-muted">{{ $trip['vehicle']['brand'] ?? '' }}</small>
                                     </td>
-                                    <td>{{ $trip['driver']['name'] ?? 'N/A' }}</td>
+                                    <td>{{ $trip['driver_id'] ?? 'N/A' }}</td>
                                     <td>{{ $trip['travel_route']['name'] ?? 'N/A' }}</td>
                                     <td>
                                         {{ \Carbon\Carbon::parse($trip['departure_at'])->format('d/m/H:i') }}<br>

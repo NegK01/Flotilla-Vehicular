@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="{{ asset('css/adminlte.css') }}" />
 </head>
 @include('layouts.navbar')
+<!--begin::Sidebar-->
+@include('layouts.sidebar')
+<!--end::Sidebar-->
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
     <div class="app-wrapper">

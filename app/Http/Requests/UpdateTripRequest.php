@@ -30,7 +30,7 @@ class UpdateTripRequest extends FormRequest
             ],
             'departure_at'    => 'sometimes|date',
             'return_at'       => 'sometimes|nullable|date|after:departure_at',
-            'return_mileage'  => 'sometimes|nullable|integer|gte:departure_mileage',
+            'return_mileage'  => 'sometimes|nullable|integer',
             'observations'    => 'sometimes|nullable|string',
         ];
     }

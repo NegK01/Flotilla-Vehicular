@@ -69,7 +69,7 @@
 
                         <h3>Editar viajes</h3>
 
-                        <form action="{{ route('trips.update', $trip['id']) }}" method="POST">
+                        <form action="{{ route('trips.update', $trip['id'] ?? $trip['request_id']) }}" method="POST">
                             @csrf
                             @method('PUT')
 
@@ -79,12 +79,12 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <label>Ruta</label>
-                                            <input type="number" name="travel_route_id" class="form-control" value="{{ $trip['travel_route_id'] }}">
-                                        </div>
 
-                                        <div class="col-md-6 mb-3">
+
+                                        <input type="hidden" name="travel_route_id" class="form-control" value="{{ $trip['travel_route_id'] }}">
+
+
+                                        <div class="col-md-12 mb-3">
                                             <label>Fecha Salida</label>
                                             <input type="datetime-local" name="departure_at" class="form-control"
                                                 value="{{ $trip['departure_at'] ? date('Y-m-d\TH:i', strtotime($trip['departure_at'])) : '' }}">
