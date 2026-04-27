@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
@@ -56,8 +57,8 @@ class AuthController extends Controller
                     'email' => 'El usuario no tiene un rol válido para ingresar al sistema.',
                 ])->onlyInput('email'),
             };
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
+        } catch (RequestException $error) {
+            $response = $error->getResponse();
 
             if ($response) {
                 $data = json_decode($response->getBody()->getContents(), true);
@@ -87,7 +88,7 @@ class AuthController extends Controller
                         'Authorization' => 'Bearer ' . $token,
                     ],
                 ]);
-            } catch (\Throwable $e) {
+            } catch (\Throwable $error) {
             }
         }
 
@@ -97,40 +98,27 @@ class AuthController extends Controller
 
         return redirect()->route('login');
     }
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $validated = $request->validate([
-            'full_name' => ['required', 'string'],
-            'email'     => ['required', 'email'],
-            'phone'     => ['nullable', 'string'],
-            'role_id'   => ['required', 'integer'],
-            'password'  => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        $validated = $request->validated();
 
         try {
             $this->apiClient()->post('api/registerDriver', [
                 'headers' =>  [
                     'Accept' => 'application/json',
                 ],
-                'json'    => [
-                    'full_name'             => $validated['full_name'],
-                    'email'                 => $validated['email'],
-                    'phone'                 => $validated['phone'] ?? null,
-                    'role_id'               => $validated['role_id'],
-                    'password'              => $validated['password'],
-                    'password_confirmation' => $request->password_confirmation,
-                ],
+                'json' => $validated
             ]);
 
             return redirect()->route('login')->onlyInput('email');
         } catch (RequestException $e) {
             dd($e);
-            return $this->handleValidationError($e);
+            return $this->handleValidationError($error);
         }
     }
-    private function handleValidationError(RequestException $e)
+    private function handleValidationError(RequestException $error)
     {
-        $response = $e->getResponse();
+        $response = $error->getResponse();
 
         if ($response) {
             $data = json_decode($response->getBody()->getContents(), true);
@@ -140,9 +128,9 @@ class AuthController extends Controller
         return back()->withErrors(['general' => 'No fue posible conectar con el backend.'])->withInput();
     }
 
-    private function handleError(RequestException $e, string $redirectRoute)
+    private function handleError(RequestException $error, string $redirectRoute)
     {
-        $response = $e->getResponse();
+        $response = $error->getResponse();
         $message  = 'Error inesperado.';
 
         if ($response) {

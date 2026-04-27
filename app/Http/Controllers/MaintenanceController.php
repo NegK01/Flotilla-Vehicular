@@ -93,5 +93,31 @@ class MaintenanceController extends Controller
             ->with('success', 'Mantenimiento actualizado con éxito');
     }
 
+    public function open()
+    {
+        $response = $this->apiClient()->get('api/maintenances',['status' => 'open']);
+
+        if ($response->failed()) {
+            return back()->withErrors('Error al obtener mantenimientos en progreso');
+        }
+
+        $maintenances = $response->json('data.data');
+
+        return view('maintenances.maintenances_general', compact('maintenances'));
+    }
+
+    public function closed()
+    {
+        $response = $this->apiClient()->get('api/maintenances',['status' => 'closed']);
+
+        if ($response->failed()) {
+            return back()->withErrors('Error al obtener mantenimientos finalizados');
+        }
+
+        $maintenances = $response->json('data.data');
+
+        return view('maintenances.maintenances_general', compact('maintenances'));
+    }
+
 
 }
