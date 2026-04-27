@@ -67,7 +67,10 @@
                 <div class="container-fluid">
                     <div class="row text-center">
 
-                        <h3>Mantenimientos de vehículos</h3>
+                        <div class="col-sm-6 d-flex justify-content-start">
+                            <a href="{{ route('maintenances.open') }}" class="btn btn-info mt-4 mb-2">En progreso</a>
+                            <a href="{{ route('maintenances.closed') }}" class="btn btn-success mt-4 mb-2 ms-1">Finalizados</a>
+                        </div>
 
                         <table class="table table-bordered table-hover text-center align-middle">
 
@@ -149,7 +152,7 @@
                                             Editar
                                         </a>
 
-                                        
+
                                     </td>
                                 </tr>
                                 @endforeach

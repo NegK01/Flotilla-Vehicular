@@ -63,6 +63,8 @@ Route::patch('/vehicles/{id}/reject', [VehicleRequestsController::class, 'reject
 
 //maintenance routes
 
+Route::get('maintenances/open',[MaintenanceController::class, 'open'])->name('maintenances.open');
+Route::get('maintenances/closed',[MaintenanceController::class, 'closed'])->name('maintenances.closed');
 Route::resource('maintenances', MaintenanceController::class);
 
 //Operador routes
