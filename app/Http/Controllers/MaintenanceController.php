@@ -93,5 +93,5 @@ class MaintenanceController extends Controller
             ->with('success', 'Mantenimiento actualizado con éxito');
     }
 
-    
+
 }
