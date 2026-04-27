@@ -10,14 +10,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" crossorigin="anonymous" />
     <link rel="stylesheet" href="{{ asset('css/adminlte.css') }}" />
 </head>
-@include('layouts.navbar')
-<!--begin::Sidebar-->
-@include('layouts.sidebar')
-<!--end::Sidebar-->
+
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
-    <div class="app-wrapper">
 
+    <!--end::Sidebar-->
+    <div class="app-wrapper">
+        @include('layouts.navbar')
+        <!--begin::Sidebar-->
+        @include('layouts.sidebar')
         <main class="app-main">
 
 
@@ -83,11 +84,9 @@
 
                                     @foreach($trips as $trip)
                                     <tr>
-                                        {{-- Cambiado de 'id' a 'request_id' --}}
                                         <td>{{ $trip['request_id'] }}</td>
 
                                         <td>
-                                            {{-- Los datos del vehículo ahora vienen directos (aplanados) --}}
                                             {{ $trip['vehicle_brand'] ?? '' }}
                                             {{ $trip['vehicle_model'] ?? '' }}
                                         </td>
@@ -103,7 +102,6 @@
                                         <td>{{ \Carbon\Carbon::parse($trip['end_at'])->format('d/m/Y H:i') }}</td>
 
                                         <td>
-                                            {{-- Cambiado de 'status' a 'request_status' --}}
                                             @if($trip['request_status'] == 'approved')
                                             <span class="badge bg-success">Aprobado</span>
                                             @elseif($trip['request_status'] == 'rejected')

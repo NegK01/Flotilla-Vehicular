@@ -63,7 +63,6 @@ class DriverController extends Controller
 
     public function requestHistorial()
     {
-
         $responseUsers = $this->apiRequest()
             ->get('users?role=3');
 
@@ -71,6 +70,7 @@ class DriverController extends Controller
             abort(500, 'Error al obtener usuarios');
         }
         $users = $responseUsers->json('data.data');
+        //dd($users);
         $trips = [];
         return view('layouts.driver.tripHistory', compact('users', 'trips'));
     }
