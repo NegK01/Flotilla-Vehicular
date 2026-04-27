@@ -95,12 +95,18 @@
                                     </div>
                                     <div class="col-md-4">
                                         <a href="{{route('road.create')}}" class="btn btn-primary w-100 py-2">
-                                            <i class="bi bi-shuffle me-2 "></i>
+                                            <i class="bi bi-cone-striped me-2 "></i>
                                             Registrar ruta
                                         </a>
                                     </div>
                                     <div class="col-md-4">
-                                        
+                                        <a href="{{route('driver.historial')}}" class="btn btn-primary w-100 py-2">
+                                            <i class="bi bi-compass me-2 "></i>
+                                            Historial de viajes
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4">
+
                                     </div>
                                 </div>
 
