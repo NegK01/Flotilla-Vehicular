@@ -50,7 +50,7 @@ class AuthController extends Controller
             return match ($data['user']['role_id'] ?? null) {
                 //hay que asignarle los nombres de las vistas correctas luego
                 1 => redirect()->route('users.index'),
-                2 => redirect()->route('users'),
+                2 => redirect()->route('driver.index'),
                 3 => redirect()->route('driver.index'),
                 default => back()->withErrors([
                     'email' => 'El usuario no tiene un rol válido para ingresar al sistema.',

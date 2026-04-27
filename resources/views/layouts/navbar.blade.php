@@ -34,7 +34,7 @@
                      <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                          <img src="{{ asset('assets/img/jake.jpg') }}" class="user-image rounded-circle shadow"
                              alt="User Image" />
-                         <span class="d-none d-md-inline">Felipe</span>
+                         <span class="d-none d-md-inline"></span>
                      </a>
                      <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                          <!--begin::User Image-->
@@ -42,8 +42,7 @@
                              <img src="{{ asset('assets/img/jake.jpg') }}" class="rounded-circle shadow"
                                  alt="User Image" />
                              <p>
-                                 Mauricio - Project Manager(Backend Dev)
-                                 <small>Member since Nov. 2023</small>
+                                 <small>Member since Apr. 2026</small>
                              </p>
                          </li>
                          <!--end::User Image-->
