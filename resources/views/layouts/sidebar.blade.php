@@ -97,139 +97,59 @@
                       </li>
                       <li class="nav-item">
                           <a href="#" class="nav-link">
-                              <i class="nav-icon bi bi-clipboard-fill"></i>
+                              <i class="nav-icon bi bi-shuffle"></i>
                               <p>
-                                  Layout Options
-                                  <span class="nav-badge badge text-bg-secondary me-3">6</span>
+                                  Rutas
                                   <i class="nav-arrow bi bi-chevron-right"></i>
                               </p>
                           </a>
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="./layout/unfixed-sidebar.html" class="nav-link">
+                                  <a href="{{ route('vehicle-requests.create') }}" class="nav-link">
                                       <i class="nav-icon bi bi-circle"></i>
-                                      <p>Default Sidebar</p>
+                                      <p>Registrar</p>
                                   </a>
                               </li>
+
+                          </ul>
+                          <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="./layout/fixed-sidebar.html" class="nav-link">
+                                  <a href="{{ route('vehicle-requests.index') }}" class="nav-link">
                                       <i class="nav-icon bi bi-circle"></i>
-                                      <p>Fixed Sidebar</p>
+                                      <p>Todos</p>
                                   </a>
                               </li>
-                              <li class="nav-item">
-                                  <a href="./layout/fixed-header.html" class="nav-link">
-                                      <i class="nav-icon bi bi-circle"></i>
-                                      <p>Fixed Header</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./layout/fixed-footer.html" class="nav-link">
-                                      <i class="nav-icon bi bi-circle"></i>
-                                      <p>Fixed Footer</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./layout/fixed-complete.html" class="nav-link">
-                                      <i class="nav-icon bi bi-circle"></i>
-                                      <p>Fixed Complete</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./layout/layout-custom-area.html" class="nav-link">
-                                      <i class="nav-icon bi bi-circle"></i>
-                                      <p>Layout <small>+ Custom Area </small></p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./layout/sidebar-mini.html" class="nav-link">
-                                      <i class="nav-icon bi bi-circle"></i>
-                                      <p>Sidebar Mini</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./layout/collapsed-sidebar.html" class="nav-link">
-                                      <i class="nav-icon bi bi-circle"></i>
-                                      <p>Sidebar Mini <small>+ Collapsed</small></p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./layout/logo-switch.html" class="nav-link">
-                                      <i class="nav-icon bi bi-circle"></i>
-                                      <p>Sidebar Mini <small>+ Logo Switch</small></p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./layout/layout-rtl.html" class="nav-link">
-                                      <i class="nav-icon bi bi-circle"></i>
-                                      <p>Layout RTL</p>
-                                  </a>
-                              </li>
+
                           </ul>
                       </li>
                       <li class="nav-item">
                           <a href="#" class="nav-link">
-                              <i class="nav-icon bi bi-tree-fill"></i>
+                              <i class="nav-icon bi bi-cone-striped"></i>
                               <p>
-                                  UI Elements
+                                  Viajes
                                   <i class="nav-arrow bi bi-chevron-right"></i>
                               </p>
                           </a>
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="./UI/general.html" class="nav-link">
+                                  <a href="{{ route('vehicle-requests.create') }}" class="nav-link">
                                       <i class="nav-icon bi bi-circle"></i>
-                                      <p>General</p>
+                                      <p>Registrar</p>
                                   </a>
                               </li>
-                              <li class="nav-item">
-                                  <a href="./UI/icons.html" class="nav-link">
-                                      <i class="nav-icon bi bi-circle"></i>
-                                      <p>Icons</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./UI/timeline.html" class="nav-link">
-                                      <i class="nav-icon bi bi-circle"></i>
-                                      <p>Timeline</p>
-                                  </a>
-                              </li>
+
                           </ul>
-                      </li>
-                      <li class="nav-item">
-                          <a href="#" class="nav-link">
-                              <i class="nav-icon bi bi-pencil-square"></i>
-                              <p>
-                                  Forms
-                                  <i class="nav-arrow bi bi-chevron-right"></i>
-                              </p>
-                          </a>
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="./forms/general.html" class="nav-link">
+                                  <a href="{{ route('vehicle-requests.index') }}" class="nav-link">
                                       <i class="nav-icon bi bi-circle"></i>
-                                      <p>General Elements</p>
+                                      <p>Todos</p>
                                   </a>
                               </li>
+
                           </ul>
                       </li>
-                      <li class="nav-item">
-                          <a href="#" class="nav-link">
-                              <i class="nav-icon bi bi-table"></i>
-                              <p>
-                                  Tables
-                                  <i class="nav-arrow bi bi-chevron-right"></i>
-                              </p>
-                          </a>
-                          <ul class="nav nav-treeview">
-                              <li class="nav-item">
-                                  <a href="./tables/simple.html" class="nav-link">
-                                      <i class="nav-icon bi bi-circle"></i>
-                                      <p>Simple Tables</p>
-                                  </a>
-                              </li>
-                          </ul>
-                      </li>
+
 
                       <li class="nav-header">EXAMPLES</li>
                       <li class="nav-item">
