@@ -62,66 +62,80 @@
                     </div>
 
                     <div class="card shadow-sm">
+                        <div class="card-header bg-dark text-white">
+                            <h3 class="card-title">Historial Detallado de Viajes</h3>
+                        </div>
                         <div class="card-body p-0">
-                            <table class="table table-bordered table-hover text-center mb-0">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Vehículo</th>
-                                        <th>Placa</th>
-                                        <th>Inicio</th>
-                                        <th>Fin</th>
-                                        <th>Estado</th>
-                                        <th>Observación</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if(empty($trips))
-                                    <tr>
-                                        <td colspan="7" class="py-4 text-muted">No se encontraron viajes para los criterios seleccionados</td>
-                                    </tr>
-                                    @endif
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover text-center mb-0">
+                                    <thead class="table-secondary">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Vehículo / Placa</th>
+                                            <th>Ruta (Origen - Destino)</th>
+                                            <th>Salida - Regreso</th>
+                                            <th>KM (Inicio/Fin)</th>
+                                            <th>Total KM</th>
+                                            <th>Estado / Observación</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($trips as $trip)
+                                        <tr>
+                                            <td>{{ $trip['trip_id'] ?? $trip['request_id'] }}</td>
 
-                                    @foreach($trips as $trip)
-                                    <tr>
-                                        <td>{{ $trip['request_id'] }}</td>
+                                            <td>
+                                                <div class="fw-bold">{{ $trip['vehicle_brand'] }} {{ $trip['vehicle_model'] }}</div>
+                                                <span class="badge bg-secondary">{{ $trip['vehicle_plate'] }}</span>
+                                            </td>
 
-                                        <td>
-                                            {{ $trip['vehicle_brand'] ?? '' }}
-                                            {{ $trip['vehicle_model'] ?? '' }}
-                                        </td>
+                                            <td>
+                                                @if(isset($trip['route_name']))
+                                                <strong>{{ $trip['route_name'] }}</strong><br>
+                                                <small class="text-muted">{{ $trip['route_start_point'] }} → {{ $trip['route_end_point'] }}</small>
+                                                @else
+                                                <span class="text-muted">N/A</span>
+                                                @endif
+                                            </td>
 
-                                        <td>
-                                            <span class="badge bg-secondary">
-                                                {{-- Cambiado de 'vehicle.plate' a 'vehicle_plate' --}}
-                                                {{ $trip['vehicle_plate'] ?? 'N/A' }}
-                                            </span>
-                                        </td>
+                                            <td class="small">
+                                                <i class="bi bi-calendar-check"></i> {{ \Carbon\Carbon::parse($trip['departure_at'] ?? $trip['start_at'])->format('d/m/Y H:i') }}<br>
+                                                <i class="bi bi-calendar-x"></i> {{ \Carbon\Carbon::parse($trip['return_at'] ?? $trip['end_at'])->format('d/m/Y H:i') }}
+                                            </td>
 
-                                        <td>{{ \Carbon\Carbon::parse($trip['start_at'])->format('d/m/Y H:i') }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($trip['end_at'])->format('d/m/Y H:i') }}</td>
+                                            <td>
+                                                <small>Ini: {{ $trip['departure_mileage'] ?? '0' }}</small><br>
+                                                <small>Fin: {{ $trip['return_mileage'] ?? '-' }}</small>
+                                            </td>
 
-                                        <td>
-                                            @if($trip['request_status'] == 'approved')
-                                            <span class="badge bg-success">Aprobado</span>
-                                            @elseif($trip['request_status'] == 'rejected')
-                                            <span class="badge bg-danger">Rechazado</span>
-                                            @elseif($trip['request_status'] == 'cancelled')
-                                            <span class="badge bg-warning">Cancelado</span>
-                                            @else
-                                            <span class="badge bg-info">{{ $trip['request_status'] }}</span>
-                                            @endif
-                                        </td>
+                                            <td>
+                                                <span class="badge bg-primary fs-6">
+                                                    {{ $trip['km_driven'] ?? '0' }} KM
+                                                </span>
+                                            </td>
 
-                                        <td>
-                                            <small class="text-muted">
-                                                {{ $trip['observation'] ?? 'Sin observaciones' }}
-                                            </small>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                            <td>
+                                                @if(($trip['request_status'] ?? '') == 'approved')
+                                                <span class="badge bg-success">Aprobado</span>
+                                                @elseif(($trip['request_status'] ?? '') == 'rejected')
+                                                <span class="badge bg-danger">Rechazado</span>
+                                                @else
+                                                <span class="badge bg-info">Completado</span>
+                                                @endif
+                                                <br>
+                                                <small class="text-muted d-block mt-1">
+                                                    {{ $trip['observations'] ?? $trip['observation'] ?? 'Sin obs.' }}
+                                                </small>
+                                            </td>
+                                        </tr>
+                                        @empty
+                                        <tr>
+                                            <td colspan="7" class="py-4 text-muted">No se encontraron registros detallados para este chofer</td>
+                                        </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
 
