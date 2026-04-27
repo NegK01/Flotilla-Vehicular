@@ -45,8 +45,8 @@
                       </li>
 
                       <li class="nav-item">
-                          <a href="{{ route('vehicles.index') }}" class="nav-link">
-                              <i class="nav-icon bi bi-people-fill"></i>
+                          <a class="nav-link">
+                              <i class="nav-icon bi bi-briefcase-fill"></i>
                               <p>
                                   Vehiculos
                                   <i class="nav-arrow bi bi-chevron-right"></i>
@@ -54,13 +54,13 @@
                           </a>
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="#" class="nav-link">
+                                  <a href="{{ route('vehicles.create') }}" class="nav-link">
                                       <i class="nav-icon bi bi-circle"></i>
                                       <p>Registrar</p>
                                   </a>
                               </li>
                               <li class="nav-item">
-                                  <a href="{{ route('users.index') }}" class="nav-link">
+                                  <a href="{{ route('vehicles.index') }}" class="nav-link">
                                       <i class="nav-icon bi bi-circle"></i>
                                       <p>Todos</p>
                                   </a>
@@ -83,7 +83,7 @@
                                       <p>Registrar</p>
                                   </a>
                               </li>
-                              
+
                           </ul>
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
@@ -92,7 +92,7 @@
                                       <p>Todos</p>
                                   </a>
                               </li>
-                              
+
                           </ul>
                       </li>
                       <li class="nav-item">
