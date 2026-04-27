@@ -50,3 +50,5 @@ Route::resource('driver', DriverController::class);
 
 //vehicle requests routes
 Route::resource('vehicle-requests', VehicleRequestsController::class);
+Route::patch('/vehicles/{id}/aprove', [VehicleRequestsController::class, 'aprove'])->name('vehicles-request.aprove');
+Route::patch('/vehicles/{id}/reject', [VehicleRequestsController::class, 'reject'])->name('vehicles-request.reject');

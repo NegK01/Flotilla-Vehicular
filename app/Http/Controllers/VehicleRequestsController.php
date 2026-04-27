@@ -50,6 +50,25 @@ class VehicleRequestsController extends Controller
         return view('vehicleRequests.registerRequest', compact('vehicles', 'users'));
     }
 
+    public function aprove($id)
+    {
+        $response = $this->apiClient()
+            ->patch("api/vehicleRequests/{$id}/approve");
+        if ($response->failed()) {
+            abort(500, 'Error al aprovar solicitud');
+        }
+        return redirect()->route('vehicle-requests.index');
+    }
+    public function reject($id)
+    {
+        $response = $this->apiClient()
+            ->patch("api/vehicleRequests/{$id}/reject");
+        if ($response->failed()) {
+            abort(500, 'Error al rechazar solicitud');
+        }
+        return redirect()->route('vehicle-requests.index');
+    }
+
     public function store(StoreRequest $request)
     {
         $response = $this->apiClient()->post('api/vehicleRequests', $request->validated());
