@@ -175,13 +175,12 @@
 
                                     <div class="col-md-6">
                                         <label for="validationCustom04" class="form-label">Estado</label>
-                                        <select name="status" class="form-control">
+                                        <select name="state" class="form-control" disabled>
                                             <option value="available">Disponible</option>
-                                            <option value="reserved">Reservado</option>
-                                            <option value="maintenance">Mantenimiento</option>
-                                            <option value="out_of_service">Fuera de servicio</option>
                                         </select>
                                     </div>
+
+                                    <input type="hidden" name="status" value="available">
 
                                     <div class="col-md-6">
                                         <label for="validationCustom05" class="form-label">Kilometraje actual</label>

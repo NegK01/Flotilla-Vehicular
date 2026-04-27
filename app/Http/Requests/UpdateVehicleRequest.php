@@ -31,7 +31,7 @@ class UpdateVehicleRequest extends FormRequest
             'capacity' => 'sometimes|integer|min:1|max:255',
             'fuel_type' => 'sometimes|string|max:50',
             'image_path' => 'sometimes|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'status' => 'nullable|in:available,reserved,maintenance,out_of_service',
+            'status' => 'sometimes|in:available,out_of_service',
             'current_mileage' => 'nullable|integer|min:0',
         ];
     }

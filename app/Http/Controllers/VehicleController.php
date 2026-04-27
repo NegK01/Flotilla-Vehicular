@@ -25,7 +25,7 @@ class VehicleController extends Controller
             abort(500, 'Error al obtener vehículos');
         }
 
-        $vehicles = $response->json('data.data'); 
+        $vehicles = $response->json('data.data');
 
         return view('vehicles.vehicle-general', compact('vehicles'));
     }
@@ -116,10 +116,7 @@ class VehicleController extends Controller
                 ]);
         } else {
             $response = $this->apiClient()
-                ->post("api/vehicles/{$id}", [
-                    ...$payload,
-                    '_method' => 'PUT'
-                ]);
+                ->put("api/vehicles/{$id}", $payload);
         }
 
 

@@ -154,7 +154,7 @@
                                         <div class="mt-2">
                                             <small class="text-muted">Imagen actual:</small>
                                             <br>
-                                            <img src="{{ asset($vehicle['image_path']) }}"
+                                            <img src="{{ $vehicle['image_url'] }}"
                                                 alt="Imagen del vehículo"
                                                 class="img-thumbnail mt-1"
                                                 style="max-width: 180px; height: auto;">
@@ -168,16 +168,6 @@
                                             <option value="available"
                                                 {{ old('status', $vehicle['status']) == 'available' ? 'selected' : '' }}>
                                                 Disponible
-                                            </option>
-
-                                            <option value="reserved"
-                                                {{ old('status', $vehicle['status']) == 'reserved' ? 'selected' : '' }}>
-                                                Reservado
-                                            </option>
-
-                                            <option value="maintenance"
-                                                {{ old('status', $vehicle['status']) == 'maintenance' ? 'selected' : '' }}>
-                                                Mantenimiento
                                             </option>
 
                                             <option value="out_of_service"

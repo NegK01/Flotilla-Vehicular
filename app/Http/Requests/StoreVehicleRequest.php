@@ -31,7 +31,7 @@ class StoreVehicleRequest extends FormRequest
             'capacity' => 'required|integer|min:1|max:255',
             'fuel_type' => 'required|string|max:50',
             'image_path' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'status' => 'nullable|in:available,reserved,maintenance,out_of_service',
+            'status' => 'nullable|in:available,out_of_service',
             'current_mileage' => 'nullable|integer|min:0',
         ];
     }
