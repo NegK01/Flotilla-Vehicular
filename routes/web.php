@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\OperadorController;
@@ -58,6 +59,10 @@ Route::resource('driver', DriverController::class);
 Route::resource('vehicle-requests', VehicleRequestsController::class);
 Route::patch('/vehicles/{id}/aprove', [VehicleRequestsController::class, 'aprove'])->name('vehicles-request.aprove');
 Route::patch('/vehicles/{id}/reject', [VehicleRequestsController::class, 'reject'])->name('vehicles-request.reject');
+
+//maintenance routes
+
+Route::resource('maintenances', MaintenanceController::class);
 
 //Operador routes
 Route::resource('operador', OperadorController::class);

@@ -23,12 +23,10 @@ class StoreMaintenanceRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'vehicle_id'  => 'required|integer',
             'type' => 'required|in:preventive,corrective',
-            'start_at' => 'required|date',
-            'closed_at' => 'sometimes|date|after:start_at',
+            'start_at' => 'required|date|after:now',
             'description' => 'required|string',
-            'cost' => 'sometimes|nullable|numeric|min:0|max:99999999.99',
-            'status' => 'sometimes|in:open,closed',
         ];
     }
 }

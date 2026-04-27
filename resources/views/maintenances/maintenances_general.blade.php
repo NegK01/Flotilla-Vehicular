@@ -4,7 +4,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Solicitudes</title>
+    <title>Mantenimientos</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <meta name="color-scheme" content="light dark" />
@@ -49,7 +49,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h3 class="mb-0">Solicitudes</h3>
+                            <h3 class="mb-0">Mantenimientos</h3>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-end">
@@ -73,11 +73,10 @@
 
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Vehículo</th>
                                     <th>Tipo</th>
-                                    <th>Inicio</th>
-                                    <th>Cierre</th>
+                                    <th>Fecha de Inicio</th>
+                                    <th>Fecha de Cierre</th>
                                     <th>Descripción</th>
                                     <th>Costo</th>
                                     <th>Estado</th>
@@ -95,7 +94,6 @@
 
                                 @foreach($maintenances as $maintenance)
                                 <tr>
-                                    <td>{{ $maintenance['id'] }}</td>
 
                                     <td>
                                         {{ $maintenance['vehicle']['brand'] ?? '' }}
@@ -106,7 +104,13 @@
                                         </small>
                                     </td>
 
-                                    <td>{{ ucfirst($maintenance['type']) }}</td>
+                                    <td>
+                                        @if ($maintenance['type'] == 'preventive')
+                                        Preventivo
+                                        @else
+                                        Correctivo
+                                        @endif
+                                    </td>
 
                                     <td>{{ $maintenance['start_at'] }}</td>
 
@@ -119,7 +123,11 @@
                                     </td>
 
                                     <td>
+                                        @if ($maintenance['cost'] == 0)
+                                        Sin asignar
+                                        @else
                                         ₡{{ number_format($maintenance['cost'] ?? 0, 2) }}
+                                        @endif
                                     </td>
 
                                     <td>
@@ -127,30 +135,21 @@
                                         <span class="badge text-bg-warning">En proceso</span>
                                         @elseif($maintenance['status'] == 'closed')
                                         <span class="badge text-bg-success">Finalizado</span>
+                                        @else
+                                        <span class="badge text-bg-secondary">
+                                            {{ $maintenance['status'] }}
+                                        </span>
                                         @endif
                                     </td>
 
                                     <td>
-                                        <a href="{{ route('maintenances.show', $maintenance['id']) }}"
-                                            class="btn btn-info btn-sm">
-                                            Ver
-                                        </a>
 
                                         <a href="{{ route('maintenances.edit', $maintenance['id']) }}"
-                                            class="btn btn-warning btn-sm">
+                                            class="btn btn-info btn-sm">
                                             Editar
                                         </a>
 
-                                        <form action="{{ route('maintenances.destroy', $maintenance['id']) }}"
-                                            method="post"
-                                            style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-
-                                            <button type="submit" class="btn btn-danger btn-sm">
-                                                Eliminar
-                                            </button>
-                                        </form>
+                                        
                                     </td>
                                 </tr>
                                 @endforeach
