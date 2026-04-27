@@ -5,6 +5,7 @@ use App\Http\Controllers\DriverController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\OperadorController;
+use App\Http\Controllers\RoadController;
 use App\Http\Controllers\VehicleRequestsController;
 use Illuminate\Support\Facades\Route;
 
@@ -60,3 +61,5 @@ Route::patch('/vehicles/{id}/reject', [VehicleRequestsController::class, 'reject
 
 //Operador routes
 Route::resource('operador', OperadorController::class);
+
+Route::resource('road', RoadController::class);

@@ -67,7 +67,7 @@
             <div class="app-content">
                 <div class="container-fluid">
 
-                    <div class="col-lg-6">
+                    <div class="col-lg-3">
                         <div class="card card-outline card-primary h-100 mb-3 ">
                             <div class="card-header">
                                 <h3 class="card-title">Accesos rápidos</h3>
@@ -75,36 +75,13 @@
 
                             <div class="card-body">
                                 <div class="row g-3">
-                                    <div class="col-md-4">
-                                        <a href="{{ route('users.create') }}" class="btn btn-primary w-100 py-2">
-                                            <i class="bi bi-person-plus-fill me-2 "></i>
-                                            Registrar usuario
-                                        </a>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <a href="{{ route('vehicles.index') }}" class="btn btn-success w-100 py-2">
-                                            <i class="bi bi-lightning-fill me-2"></i>
-                                            Registrar vehiculo
-                                        </a>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <a href="{{route('road.index')}}" class="btn btn-primary w-100 py-2">
-                                            <i class="bi bi-shuffle me-2 "></i>
-                                            Rutas
-                                        </a>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <a href="{{route('road.create')}}" class="btn btn-primary w-100 py-2">
+                                    <div class="col-md-12">
+                                        <a href="{{ route('road.create') }}" class="btn btn-primary w-100 py-2">
                                             <i class="bi bi-shuffle me-2 "></i>
                                             Registrar ruta
                                         </a>
                                     </div>
-                                    <div class="col-md-4">
-                                        <a href="{{ route('request.historial') }}" class="btn btn-primary w-100 py-2">
-                                            <i class="bi bi-shuffle me-2 "></i>
-                                            Historial Chofer
-                                        </a>
-                                    </div>
+
                                 </div>
 
                             </div>
@@ -122,78 +99,42 @@
 
 
                     <div class="row text-center">
-
                         <table class="table table-dark table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th>Nombre Completo</th>
-                                    <th>Correo</th>
-                                    <th>Teléfono</th>
-                                    <th>Rol</th>
-                                    <th>Acciones</th>
+                                    <th>ID</th>
+                                    <th>Nombre del Viaje</th>
+                                    <th>Origen</th>
+                                    <th>Destino</th>
+                                    <th>Distancia (KM)</th>
+                                    <th>Descripción</th>
+
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(!$users)
+                                @if(empty($roads))
                                 <tr>
-                                    <td colspan="5" class="text-center">No hay datos para mostrar</td>
+                                    <td colspan="7" class="text-center">No hay rutas registradas para mostrar</td>
                                 </tr>
                                 @else
-                                @foreach ($users as $user)
+                                @foreach ($roads as $road)
                                 <tr>
-                                    <td>{{ $user['full_name'] }}</td>
-                                    <td>{{ $user['email'] }}</td>
-                                    <td>{{ $user['phone'] }}</td>
+                                    <td>{{ $road['id'] }}</td>
+                                    <td>{{ $road['name'] }}</td>
+                                    <td>{{ $road['start_point'] }}</td>
+                                    <td>{{ $road['end_point'] }}</td>
+                                    <td>{{ number_format($road['estimated_distance'], 2) }} km</td>
                                     <td>
-                                        @if ($user['role_id'] == 1) Administrador
-                                        @elseif ($user['role_id'] == 2) Operador
-                                        @elseif ($user['role_id'] == 3) Conductor
-                                        @endif
+                                        <small>{{ Str::limit($road['description'] ?? 'Sin descripción', 30) }}</small>
                                     </td>
-                                    <td>
-                                        @if( !isset($user['deleted_at']) || is_null($user['deleted_at']) )
-                                        <a href="{{ route('users.edit', $user['id']) }}" class="btn btn-primary">Editar</a>
-                                        <form action="{{ route('users.destroy', $user['id']) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">
-                                                Eliminar
-                                            </button>
-                                        </form>
-                                        @else
-                                        <form action="{{ route('users.restore', $user['id']) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('PATCH')
-                                            <button type="submit" class="btn btn-success w-100">
-                                                Reactivar
-                                            </button>
-                                        </form>
-                                        @endif
-                                    </td>
+
                                 </tr>
                                 @endforeach
                                 @endif
                             </tbody>
                         </table>
 
-                        <div class="card-footer d-flex justify-content-end">
-                            @if(Route::is('users.inactive'))
-                            <a href="{{ route('users.index') }}" class="btn btn-sm btn-success">
-                                Mostrar Activos
-                            </a>
-                            @else
-                            <a href="{{ route('users.inactive') }}" class="btn btn-sm btn-warning">
-                                Mostrar Inactivos
-                            </a>
-                            @endif
-                        </div>
 
-
-
-
-
-
-                        <!--end::Users List-->
                     </div>
                 </div>
                 <!--end::App Content-->
