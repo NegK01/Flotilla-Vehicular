@@ -21,7 +21,7 @@ class VehicleRequestsController extends Controller
         $response = $this->apiClient()->get('api/vehicleRequests');
 
         if ($response->failed()) {
-            abort(500, 'Error al obtener solicitudes');
+            return back()->withErrors('Error al obtener mantenimientos');
         }
 
         $requests = $response->json('data.data');
