@@ -6,7 +6,7 @@ use App\Http\Requests\StoreTripRequest;
 use App\Http\Requests\UpdateTripRequest;
 use Illuminate\Support\Facades\Http;
 
-class TravelController extends Controller
+class TripController extends Controller
 {
     public function apiClient()
     {
@@ -25,7 +25,7 @@ class TravelController extends Controller
 
         $trips = $response->json('data.data');
 
-        return view('trips.index', compact('trips'));
+        return view('trips.viewTrips', compact('trips'));
     }
 
     public function create()
@@ -50,7 +50,7 @@ class TravelController extends Controller
         $drivers = $responseDrivers->json('data.data');
         $routes = $responseRoutes->json('data.data');
 
-        return view('trips.create', compact('vehicles', 'drivers', 'routes'));
+        return view('trips.trip_registration', compact('vehicles', 'drivers', 'routes'));
     }
 
     public function store(StoreTripRequest $request)
@@ -82,11 +82,11 @@ class TravelController extends Controller
     {
         $trip = $this->show($id);
 
-        if ($trip->failed()) {
+        if (!$trip) {
             return redirect()->route('trips.index')->withErrors('No se encontró el viaje');
         }
 
-        return view('trips.edit', compact('trip'));
+        return view('trips.trip_edit', compact('trip'));
     }
 
     public function update(UpdateTripRequest $request, $id)

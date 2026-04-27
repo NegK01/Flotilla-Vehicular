@@ -67,63 +67,56 @@
                 <div class="container-fluid">
                     <div class="row text-center">
 
-                        <h3>Gestion de viajes</h3>
+                        <h3>Editar viajes</h3>
 
-                        <table class="table table-bordered table-hover text-center align-middle">
-                            <thead>
-                                <tr>
-                                    <th>Vehículo</th>
-                                    <th>Conductor</th>
-                                    <th>Ruta</th>
-                                    <th>Salida</th>
-                                    <th>Regreso</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($trips as $trip)
-                                <tr>
-                                    <td>
-                                        {{ $trip['vehicle']['plate'] ?? 'S/P' }}<br>
-                                        <small class="text-muted">{{ $trip['vehicle']['brand'] ?? '' }}</small>
-                                    </td>
-                                    <td>{{ $trip['driver']['name'] ?? 'N/A' }}</td>
-                                    <td>{{ $trip['travel_route']['name'] ?? 'N/A' }}</td>
-                                    <td>
-                                        {{ \Carbon\Carbon::parse($trip['departure_at'])->format('d/m/H:i') }}<br>
-                                        <small>{{ number_format($trip['departure_mileage']) }} km</small>
-                                    </td>
-                                    <td>
-                                        @if($trip['return_at'])
-                                        {{ \Carbon\Carbon::parse($trip['return_at'])->format('d/m/H:i') }}<br>
-                                        <small>{{ number_format($trip['return_mileage']) }} km</small>
-                                        @else
-                                        <span class="text-muted">---</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if(is_null($trip['return_at']))
-                                        <span class="badge text-bg-warning">En Curso</span>
-                                        @else
-                                        <span class="badge text-bg-success">Finalizado</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('trips.edit', $trip['id']) }}" class="btn btn-info btn-sm">Editar</a>
-                                        <form action="{{ route('trips.destroy', $trip['id']) }}" method="POST" class="d-inline">
-                                            @csrf @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar viaje?')">Borrar</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="7">No hay viajes registrados</td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
+                        <form action="{{ route('trips.update', $trip['id']) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+
+                            <div class="card card-outline card-info">
+                                <div class="card-header">
+                                    <h3 class="card-title">Actualizar / Finalizar Viaje</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label>Ruta</label>
+                                            <input type="number" name="travel_route_id" class="form-control" value="{{ $trip['travel_route_id'] }}">
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label>Fecha Salida</label>
+                                            <input type="datetime-local" name="departure_at" class="form-control"
+                                                value="{{ $trip['departure_at'] ? date('Y-m-d\TH:i', strtotime($trip['departure_at'])) : '' }}">
+                                        </div>
+
+                                        <hr>
+                                        <h5>Datos de Retorno (Cierre de Viaje)</h5>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label>Fecha y Hora de Regreso</label>
+                                            <input type="datetime-local" name="return_at" class="form-control"
+                                                value="{{ $trip['return_at'] ? date('Y-m-d\TH:i', strtotime($trip['return_at'])) : '' }}">
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label>Kilometraje de Regreso</label>
+                                            <input type="number" name="return_mileage" class="form-control"
+                                                value="{{ $trip['return_mileage'] }}" placeholder="Debe ser >= {{ $trip['departure_mileage'] }}">
+                                        </div>
+
+                                        <div class="col-md-12 mb-3">
+                                            <label>Observaciones Finales</label>
+                                            <textarea name="observations" class="form-control">{{ $trip['observations'] }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                                    <a href="{{ route('trips.index') }}" class="btn btn-secondary">Cancelar</a>
+                                </div>
+                            </div>
+                        </form>
 
 
                         <!--end::Users List-->

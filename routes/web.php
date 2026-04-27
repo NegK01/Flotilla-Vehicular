@@ -6,6 +6,7 @@ use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\OperadorController;
+use App\Http\Controllers\TripController;
 use App\Http\Controllers\VehicleRequestsController;
 use Illuminate\Support\Facades\Route;
 
@@ -65,3 +66,6 @@ Route::resource('maintenances', MaintenanceController::class);
 
 //Operador routes
 Route::resource('operador', OperadorController::class);
+
+//trip routes
+Route::resource('trips', TripController::class);

@@ -120,55 +120,6 @@
                                       <p>Registrar</p>
                                   </a>
                               </li>
-                              <li class="nav-item">
-                                  <a href="./layout/fixed-header.html" class="nav-link">
-                                      <i class="nav-icon bi bi-circle"></i>
-                                      <p>Fixed Header</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./layout/fixed-footer.html" class="nav-link">
-                                      <i class="nav-icon bi bi-circle"></i>
-                                      <p>Fixed Footer</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./layout/fixed-complete.html" class="nav-link">
-                                      <i class="nav-icon bi bi-circle"></i>
-                                      <p>Fixed Complete</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./layout/layout-custom-area.html" class="nav-link">
-                                      <i class="nav-icon bi bi-circle"></i>
-                                      <p>Layout <small>+ Custom Area </small></p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./layout/sidebar-mini.html" class="nav-link">
-                                      <i class="nav-icon bi bi-circle"></i>
-                                      <p>Sidebar Mini</p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./layout/collapsed-sidebar.html" class="nav-link">
-                                      <i class="nav-icon bi bi-circle"></i>
-                                      <p>Sidebar Mini <small>+ Collapsed</small></p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./layout/logo-switch.html" class="nav-link">
-                                      <i class="nav-icon bi bi-circle"></i>
-                                      <p>Sidebar Mini <small>+ Logo Switch</small></p>
-                                  </a>
-                              </li>
-                              <li class="nav-item">
-                                  <a href="./layout/layout-rtl.html" class="nav-link">
-                                      <i class="nav-icon bi bi-circle"></i>
-                                      <p>Layout RTL</p>
-                                  </a>
-                              </li>
-
                           </ul>
                       </li>
                       <li class="nav-item">
@@ -181,7 +132,7 @@
                           </a>
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="{{ route('vehicle-requests.create') }}" class="nav-link">
+                                  <a href="{{ route('trips.create') }}" class="nav-link">
                                       <i class="nav-icon bi bi-circle"></i>
                                       <p>Registrar</p>
                                   </a>
@@ -190,7 +141,7 @@
                           </ul>
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="{{ route('vehicle-requests.index') }}" class="nav-link">
+                                  <a href="{{ route('trips.index') }}" class="nav-link">
                                       <i class="nav-icon bi bi-circle"></i>
                                       <p>Todos</p>
                                   </a>

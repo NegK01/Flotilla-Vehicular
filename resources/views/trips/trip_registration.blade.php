@@ -67,63 +67,45 @@
                 <div class="container-fluid">
                     <div class="row text-center">
 
-                        <h3>Gestion de viajes</h3>
+                        <h3>Registrar viajes</h3>
 
-                        <table class="table table-bordered table-hover text-center align-middle">
-                            <thead>
-                                <tr>
-                                    <th>Vehículo</th>
-                                    <th>Conductor</th>
-                                    <th>Ruta</th>
-                                    <th>Salida</th>
-                                    <th>Regreso</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($trips as $trip)
-                                <tr>
-                                    <td>
-                                        {{ $trip['vehicle']['plate'] ?? 'S/P' }}<br>
-                                        <small class="text-muted">{{ $trip['vehicle']['brand'] ?? '' }}</small>
-                                    </td>
-                                    <td>{{ $trip['driver']['name'] ?? 'N/A' }}</td>
-                                    <td>{{ $trip['travel_route']['name'] ?? 'N/A' }}</td>
-                                    <td>
-                                        {{ \Carbon\Carbon::parse($trip['departure_at'])->format('d/m/H:i') }}<br>
-                                        <small>{{ number_format($trip['departure_mileage']) }} km</small>
-                                    </td>
-                                    <td>
-                                        @if($trip['return_at'])
-                                        {{ \Carbon\Carbon::parse($trip['return_at'])->format('d/m/H:i') }}<br>
-                                        <small>{{ number_format($trip['return_mileage']) }} km</small>
-                                        @else
-                                        <span class="text-muted">---</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if(is_null($trip['return_at']))
-                                        <span class="badge text-bg-warning">En Curso</span>
-                                        @else
-                                        <span class="badge text-bg-success">Finalizado</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('trips.edit', $trip['id']) }}" class="btn btn-info btn-sm">Editar</a>
-                                        <form action="{{ route('trips.destroy', $trip['id']) }}" method="POST" class="d-inline">
-                                            @csrf @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar viaje?')">Borrar</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="7">No hay viajes registrados</td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
+                        <form action="{{ route('trips.store') }}" method="POST">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label>Vehículo Solicitado (ID)</label>
+                                    <select name="vehicle_request_id" class="form-select" required>
+                                        <option value="">Seleccione un vehículo</option>
+
+                                        @foreach($vehicles as $vehicle)
+                                        <option value="{{ $vehicle['id'] }}">
+                                            {{ $vehicle['brand'] }} {{ $vehicle['model'] }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Ruta de Viaje</label>
+                                    <select name="travel_route_id" class="form-select" required>
+                                        @foreach($routes as $route)
+                                        <option value="{{ $route['id'] }}">{{ $route['name'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Fecha y Hora de Salida</label>
+                                    <input type="datetime-local" name="departure_at" class="form-control" required>
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <label>Observaciones Iniciales</label>
+                                    <textarea name="observations" class="form-control" rows="3">{{ old('observations') }}</textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Registrar Salida de Viaje</button>
+                        </form>
 
 
                         <!--end::Users List-->
