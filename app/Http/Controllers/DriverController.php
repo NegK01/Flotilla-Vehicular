@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\VehicleRequest\StoreRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Auth;
 
 class DriverController extends Controller
 {
@@ -15,6 +14,13 @@ class DriverController extends Controller
             ->acceptJson()
             ->baseUrl(config('services.api.url') . '/api');
     }
+
+    private function currentUserId()
+    {
+        $user = session('auth_user');
+        return $user['id'] ?? null;
+    }
+
     public function index()
     {
         try {
@@ -43,7 +49,7 @@ class DriverController extends Controller
     public function store(StoreRequest $request)
     {
         $payload = array_merge($request->validated(), [
-            'user_id' => Auth::id(),
+            'user_id' => $this->currentUserId(),
         ]);
 
         $response = $this->apiRequest()->post('/vehicleRequests', $payload);
@@ -53,5 +59,29 @@ class DriverController extends Controller
         }
         dd($response->json());
         return back()->withErrors('La API rechazó los datos.');
+    }
+    public function historial()
+    {
+        try {
+            $id = $this->currentUserId();
+
+            if (!$id) {
+                return redirect()->route('login')->withErrors('Debe iniciar sesión para ver el historial.');
+            }
+
+            $response = $this->apiRequest()->get("reports/drivers/{$id}/history");
+
+            if (!$response->successful()) {
+                dd("Error de API", $response->status(), $response->json());
+            }
+
+            $data = $response->json();
+
+            return view('layouts.driver.tripHistory', [
+                'trips' => $data['data']['data'] ?? []
+            ]);
+        } catch (\Exception $error) {
+            dd("Excepción capturada en historial:", $error->getMessage());
+        }
     }
 }

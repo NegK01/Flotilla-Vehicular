@@ -47,7 +47,9 @@ Route::patch('/vehicles/{id}/restore', [VehicleController::class, 'restore'])->n
 Route::resource('vehicles', VehicleController::class);
 
 Route::post('/directStore', [VehicleRequestsController::class, 'directStore'])->name('request.directstore');
+Route::get('/directStore', [DriverController::class, 'historial'])->name('driver.historial');
 Route::resource('driver', DriverController::class);
+
 
 //vehicle requests routes
 Route::resource('vehicle-requests', VehicleRequestsController::class);

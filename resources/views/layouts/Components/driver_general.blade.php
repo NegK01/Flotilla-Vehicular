@@ -26,10 +26,9 @@
                     <div class="card-body">
                         <div class="row g-3">
                             <div class="col-md-4">
-                                <a href="{{ route('users.create') }}" class="btn btn-primary w-100 py-2">
+                                <a href="" class="btn btn-primary w-100 py-2">
                                     <i class="bi bi-person-plus-fill me-2 "></i>
-                                    Registrar usuario
-                                </a>
+                                    H
                             </div>
                             <div class="col-md-4">
                                 <a href="{{ route('vehicles.index') }}" class="btn btn-success w-100 py-2">
@@ -52,7 +51,7 @@
             <div class="app-content">
                 <div class="container-fluid">
 
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 m-1">
 
                         @if(!$vehicles || count($vehicles) == 0)
                         <div class="col-12 text-center mt-5">
